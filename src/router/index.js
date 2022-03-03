@@ -5,11 +5,11 @@ export const router = createRouter({
   routes: [
     {
       path: '/',
-      component: () => import('../views/index.vue')
+      component: () => import('../views/index.vue'),
     },
     {
       path: '/symbols/:symbol',
-      component: () => import('../views/symbols/index.vue')
-    }
+      component: () => import('../views/symbols/index.vue'),
+    },
   ],
 });
