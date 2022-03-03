@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import MainModal from '@/components/main-modal/index.vue';
+import MainModal from '../../components/main-modal/index.vue';
 
 export default {
   name: 'SymbolsModal',
