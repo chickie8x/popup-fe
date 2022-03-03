@@ -1,0 +1,11 @@
+<template>
+  <div>
+    Chart
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'TechnicalChart', 
+}
+</script>
