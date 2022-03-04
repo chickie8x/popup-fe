@@ -1,11 +1,17 @@
 <template>
   <div>
-    Chart
+    <VueTradingView />
   </div>
 </template>
 
 <script>
+import VueTradingView from 'vue-trading-view/src/index';
+
 export default {
-  name: 'TechnicalChart', 
-}
+  name: 'TechnicalChart',
+
+  components: {
+    VueTradingView,
+  },
+};
 </script>

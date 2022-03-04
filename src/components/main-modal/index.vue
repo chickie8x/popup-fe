@@ -30,72 +30,7 @@
           <div
             class="bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:p-6 w-full h-screen"
           >
-            <div class="sm:flex sm:items-start">
-              <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                <DialogTitle
-                  as="h3"
-                  class="text-lg leading-6 font-medium text-gray-900"
-                >
-                  FPT
-                </DialogTitle>
-                
-                <div class="mt-2 flex">
-                  <div class="block">
-                    <div class="font-bold">CTCP FPT</div>
-                    <span>
-                      FPT:HSX
-                    </span>
-                  </div>
-
-                  <div class="block ml-auto">
-                    <div class="font-bold">93.40</div>
-                    <span class="text-green">
-                      +0.30 / +0.32%
-                    </span>
-                  </div>
-                </div>
-
-                <div class="mt-2">
-                  <div class="sm:hidden">
-                    <label for="tabs" class="sr-only">Select a tab</label>
-                    <select
-                      id="tabs"
-                      name="tabs"
-                      class="block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
-                    >
-                      <option
-                        v-for="tab in tabs"
-                        :key="tab.name"
-                        :selected="tab.current"
-                      >
-                        {{ tab.name }}
-                      </option>
-                    </select>
-                  </div>
-                  <div class="hidden sm:block">
-                    <nav class="flex space-x-2" aria-label="Tabs">
-                      <a
-                        v-for="tab in tabs"
-                        :key="tab.name"
-                        :href="tab.href"
-                        :class="[
-                          tab.current
-                            ? 'bg-gray-100 text-gray-700'
-                            : 'text-gray-500 hover:text-gray-700',
-                          'px-3 py-2 font-medium text-sm rounded-md',
-                        ]"
-                        :aria-current="tab.current ? 'page' : undefined"
-                      >
-                        {{ tab.name }}
-                      </a>
-                    </nav>
-                  </div>
-                </div>
-
-                <div class="border-4 border-dashed border-gray-200 rounded-lg h-96 mt-4">
-                </div>
-              </div>
-            </div>
+            <SymbolDetail />
           </div>
         </TransitionChild>
       </div>
@@ -106,42 +41,21 @@
 <script>
 import {
   Dialog,
-  DialogTitle,
   DialogOverlay,
   TransitionRoot,
   TransitionChild,
 } from '@headlessui/vue';
-import {
-  MailIcon
-} from '@heroicons/vue/outline';
-
-const tabs = [
-  { name: 'Tổng quan', href: '#', current: false },
-  { name: 'Tin tức', href: '#', current: false },
-  { name: 'Biểu đồ kỹ thuật', href: '#', current: true },
-  { name: 'Hồ sơ công ty', href: '#', current: false },
-  { name: 'Cổ đông', href: '#', current: false },
-  { name: 'Cổ tức', href: '#', current: false },
-  { name: 'Tài chính', href: '#', current: false },
-  { name: 'Giá quá khứ', href: '#', current: false },
-];
+import SymbolDetail from '../symbol-detail/index.vue';
 
 export default {
   name: 'MainModal',
 
   components: {
-    MailIcon,
     Dialog,
     DialogOverlay,
-    DialogTitle,
     TransitionChild,
     TransitionRoot,
-  },
-
-  setup() {
-    return {
-      tabs,
-    };
+    SymbolDetail,
   },
 };
 </script>
