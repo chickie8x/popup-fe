@@ -9,17 +9,17 @@
 </template>
 
 <script>
-import { useRoute } from 'vue-router'
+import { useRoute } from 'vue-router';
 
 export default {
   setup() {
-    const route = useRoute()
+    const route = useRoute();
     const symbol = route.symbol || 'FPT';
 
-    const ifSrc = `http://localhost:3000/symbols/${symbol.toUpperCase()}`
+    const ifSrc = `http://localhost:3000/symbols/${symbol.toUpperCase()}`;
     return {
-      ifSrc
-    }
-  }
+      ifSrc,
+    };
+  },
 };
 </script>
