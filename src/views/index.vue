@@ -1,7 +1,7 @@
 <template>
   <div class="w-screen h-screen flex justify-center items-center bg-gray-400">
     <iframe
-      src="http://localhost:3000/symbols/FPT"
+      :src="ifSrc"
       style="width: 900px; height: 700px"
       class="rounded-lg shadow-lg"
     />
@@ -9,7 +9,17 @@
 </template>
 
 <script>
+import { useRoute } from 'vue-router'
+
 export default {
-  name: 'Index',
+  setup() {
+    const route = useRoute()
+    const symbol = route.symbol || 'FPT';
+
+    const ifSrc = `http://localhost:3000/symbols/${symbol.toUpperCase()}`
+    return {
+      ifSrc
+    }
+  }
 };
 </script>

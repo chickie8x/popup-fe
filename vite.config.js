@@ -5,6 +5,11 @@ import vue from '@vitejs/plugin-vue';
 export default defineConfig({
   plugins: [vue()],
   server: {
-    proxy: {},
+    proxy: {
+      '/api': {
+        target: 'http://jsonplaceholder.typicode.com',
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    },
   },
 });

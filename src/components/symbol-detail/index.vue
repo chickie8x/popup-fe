@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, inject } from 'vue';
 import { DialogTitle } from '@headlessui/vue';
 import CTabs from '../kits/tabs/index.vue';
 
@@ -53,6 +53,8 @@ const tabs = [
   { name: 'Giá quá khứ', key: 'giaquakhu', component: HistoryPrice },
 ];
 
+
+
 export default {
   components: {
     CTabs,
@@ -61,7 +63,12 @@ export default {
   },
 
   setup() {
+    // const http = inject('axios')
     const tab = ref(tabs[0]);
+    // http.get('/api/symbols/FPT/profile')
+    //   .then((res) => {
+    //     console.log(res.data)
+    //   })
     return {
       tab,
       tabs,

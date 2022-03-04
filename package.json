@@ -12,9 +12,11 @@
   "dependencies": {
     "@headlessui/vue": "^1.5.0",
     "@heroicons/vue": "^1.0.5",
+    "axios": "^0.26.0",
     "eslint": "^8.10.0",
     "eslint-plugin-vue": "^8.5.0",
     "vue": "^3.2.25",
+    "vue-axios": "^3.4.1",
     "vue-router": "4",
     "vue-trading-view": "^1.0.1"
   },
