@@ -16,7 +16,7 @@ export default {
     const route = useRoute();
     const symbol = route.symbol || 'FPT';
 
-    const ifSrc = `http://localhost:3000/symbols/${symbol.toUpperCase()}`;
+    const ifSrc = `/symbols/${symbol.toUpperCase()}`;
     return {
       ifSrc,
     };
