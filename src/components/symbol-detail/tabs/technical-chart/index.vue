@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import VueTradingView from 'vue-trading-view/src/index';
+import VueTradingView from 'vue-trading-view/src/index'
 
 export default {
   name: 'TechnicalChart',
@@ -13,5 +13,5 @@ export default {
   components: {
     VueTradingView,
   },
-};
+}
 </script>

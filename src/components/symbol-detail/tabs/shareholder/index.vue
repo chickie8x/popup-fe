@@ -1,11 +1,11 @@
 <template>
   <div class="border-2 border-gray-200 border-dashed rounded-lg h-96">
-    Divident
+    ShareHolder
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Divident',
-};
+  name: 'ShareHolder',
+}
 </script>

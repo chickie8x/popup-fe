@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router'
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -8,8 +8,18 @@ export const router = createRouter({
       component: () => import('../views/index.vue'),
     },
     {
-      path: '/symbols/:symbol',
-      component: () => import('../views/symbols/index.vue'),
+      path: '/entry',
+      component: () => import('../views/entry/index.vue'),
+      children: [
+        {
+          path: 'symbols/:symbol',
+          component: () => import('../components/symbol-detail/index.vue'),
+        },
+        {
+          path: 'members/:id',
+          component: () => import('../components/member-detail/index.vue'),
+        },
+      ],
     },
   ],
-});
+})

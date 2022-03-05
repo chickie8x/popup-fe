@@ -1,9 +1,9 @@
 <template>
-  <div>Table</div>
+  <div>Member detail</div>
 </template>
 
 <script>
 export default {
-  name: 'CommonTable',
+  name: 'MemberDetail',
 }
 </script>

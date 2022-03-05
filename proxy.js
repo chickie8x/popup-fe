@@ -1,4 +1,4 @@
-const request = require('request');
+const request = require('request')
 const headers = {
   authority: 'restv2.fireant.vn',
   accept: 'application/json, text/plain, */*',
@@ -12,29 +12,37 @@ const headers = {
   'sec-fetch-mode': 'cors',
   'sec-fetch-dest': 'empty',
   'accept-language': 'en-US,en;q=0.9',
-};
+}
 
-const cors = require('cors');
-const express = require('express');
-const app = express();
+const cors = require('cors')
+const express = require('express')
+const app = express()
 
 app.use(
   cors({
     origin: '*',
   }),
-);
+)
+
+const cache = {}
 
 app.get('*', async (req, res) => {
-  console.log(req.path);
+  if (cache[req.path]) {
+    console.log('CACHE: ', req.path)
+    res.send(cache[req.path])
+    return
+  }
   const options = {
     headers,
     url: `https://restv2.fireant.vn/${req.path}`,
-  };
+  }
   request(options, (error, response, body) => {
-    res.send(body);
-  });
-});
+    console.log('FETCH: ', req.path)
+    cache[req.path] = body
+    res.send(body)
+  })
+})
 
 app.listen(9999, async () => {
-  console.log(`Proxy app listening at PORT: ${9999}`);
-});
+  console.log(`Proxy app listening at PORT: ${9999}`)
+})

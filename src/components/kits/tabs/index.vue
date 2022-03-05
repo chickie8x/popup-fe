@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed } from 'vue'
 
 export default {
   name: 'CTabs',
@@ -40,21 +40,21 @@ export default {
   setup(props, { emit }) {
     const current = computed({
       get: () => {
-        return props.modelValue;
+        return props.modelValue
       },
       set: (val) => {
-        emit('update:modelValue', val);
+        emit('update:modelValue', val)
       },
-    });
+    })
 
     const select = (tab) => {
-      current.value = tab;
-    };
+      current.value = tab
+    }
 
     return {
       select,
       current,
-    };
+    }
   },
-};
+}
 </script>
