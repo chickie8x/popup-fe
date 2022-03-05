@@ -36,6 +36,64 @@
             </tr>
           </table>
         </div>
+
+        <div class="px-3 py-3 bg-gray-200 shadow overflow-x-scroll">
+          <table class="min-w-full divide-y divide-gray-300">
+            <thead>
+            <tr>
+              <th  scope="col" class="px-3 py-3 text-left text-sm font-bold text-gray-900 uppercase tracking-wider">CÔNG TY CON</th>
+              <th scope="col" class="px-3 py-3 text-sm text-right font-bold text-gray-900 uppercase tracking-wider">VỐN ĐIỀU LỆ</th>
+              <th scope="col" class="px-3 py-3 text-sm text-right font-bold text-gray-900 uppercase tracking-wider">TỶ LỆ (%)</th>
+            </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+            </tbody>
+
+            <tr
+                v-for="row in subCompany"
+                :key="row.institutionID"
+            >
+              <td class="px-3 py-3 whitespace-nowrap text-sm font-bold text-gray-900">
+                {{ row.companyName }} {{row.symbol ? '(' + row.symbol + ':' + row.exchange + ')' : '' }}
+              </td>
+              <td class="px-3 py-3 whitespace-nowrap text-sm text-right text-gray-800">
+                {{ row.charterCapital ? new Intl.NumberFormat('vi', {compactDisplay:'long', notation: 'compact'}).format(row.charterCapital) : '' }}
+              </td>
+              <td class="px-3 py-3 whitespace-nowrap text-sm text-right font-bold text-gray-900">
+                {{ Intl.NumberFormat('en', {minimumFractionDigits: 2, maximumFractionDigits:2}).format(row.ownership*100) }}
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="px-3 py-3 bg-gray-200 shadow overflow-x-scroll">
+          <table class="min-w-full divide-y divide-gray-300">
+            <thead>
+            <tr>
+              <th  scope="col" class="px-3 py-3 text-left text-sm font-bold text-gray-900 uppercase tracking-wider">CÔNG TY CON</th>
+              <th scope="col" class="px-3 py-3 text-sm text-right font-bold text-gray-900 uppercase tracking-wider">VỐN ĐIỀU LỆ</th>
+              <th scope="col" class="px-3 py-3 text-sm text-right font-bold text-gray-900 uppercase tracking-wider">TỶ LỆ (%)</th>
+            </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+            </tbody>
+
+            <tr
+                v-for="row in linkCompany"
+                :key="row.institutionID"
+            >
+              <td class="px-3 py-3 whitespace-nowrap text-sm font-bold text-gray-900">
+                {{ row.companyName }} {{row.symbol ? '(' + row.symbol + ':' + row.exchange + ')' : '' }}
+              </td>
+              <td class="px-3 py-3 whitespace-nowrap text-sm text-right text-gray-800">
+                {{ row.charterCapital ? new Intl.NumberFormat('vi', {compactDisplay:'long', notation: 'compact'}).format(row.charterCapital) : '' }}
+              </td>
+              <td class="px-3 py-3 whitespace-nowrap text-sm text-right font-bold text-gray-900">
+                {{ Intl.NumberFormat('en', {minimumFractionDigits: 2, maximumFractionDigits:2}).format(row.ownership*100) }}
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
     </main>
 
@@ -83,6 +141,8 @@ export default {
     const route = useRoute()
     const profile = ref({})
     const officers = ref([])
+    const subCompany = ref([])
+    const linkCompany = ref([])
     const symbol = route.params.symbol
 
     axios
@@ -92,6 +152,10 @@ export default {
         profile.value.dateOfListing = new Intl.DateTimeFormat('vi', {month:'2-digit',day:'2-digit', year:'numeric'}).format(new Date(profile.value.dateOfListing))
         profile.value.establishmentDate = new Intl.DateTimeFormat('vi', {month:'2-digit',day:'2-digit', year:'numeric'}).format(new Date(profile.value.establishmentDate))
         profile.value.dateOfIssue = new Intl.DateTimeFormat('vi', {month:'2-digit',day:'2-digit', year:'numeric'}).format(new Date(profile.value.dateOfIssue))
+        profile.value.initialListingPrice = new Intl.NumberFormat('en').format(profile.value.initialListingPrice)
+        profile.value.employees = new Intl.NumberFormat('en').format(profile.value.employees)
+        profile.value.charterCapital = new Intl.NumberFormat('en').format(profile.value.charterCapital/10000)
+        profile.value.listingVolume = new Intl.NumberFormat('vi', {compactDisplay:'long', notation: 'compact'}).format(profile.value.listingVolume*10000)
       })
       .catch((err) => {
         console.log(err)
@@ -112,10 +176,27 @@ export default {
         console.log(err)
       })
 
+    axios
+        .get(`/api/symbols/${symbol}/subsidiaries`)
+        .then((res) => {
+          for (const childCompany of res.data) {
+            if (childCompany.type === 0) {
+              subCompany.value.push(childCompany)
+            } else if (childCompany.type === 1) {
+              linkCompany.value.push(childCompany)
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+
     return {
       profile,
       officers,
       companyInfo,
+      subCompany,
+      linkCompany,
     }
   },
 }
