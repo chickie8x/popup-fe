@@ -66,6 +66,7 @@
 <script>
 import axios from 'axios'
 import { ref } from 'vue'
+import {useRoute} from "vue-router";
 
 const companyInfo = [
   [{name: 'Mã SIC', key: 'symbol'}, {name: 'Ngày niêm yết', key:'dateOfListing'}],
@@ -79,11 +80,13 @@ export default {
   name: 'CompanyDetail',
 
   setup() {
+    const route = useRoute()
     const profile = ref({})
     const officers = ref([])
+    const symbol = route.params.symbol
 
     axios
-      .get('/api/symbols/FPT/profile')
+      .get(`/api/symbols/${symbol}/profile`)
       .then((res) => {
         profile.value = res.data
         profile.value.dateOfListing = new Intl.DateTimeFormat('vi', {month:'2-digit',day:'2-digit', year:'numeric'}).format(new Date(profile.value.dateOfListing))
@@ -95,7 +98,7 @@ export default {
       })
 
     axios
-      .get('/api/symbols/FPT/officers')
+      .get(`/api/symbols/${symbol}/officers`)
       .then((res) => {
         officers.value = res.data
         for (const person of officers.value) {
