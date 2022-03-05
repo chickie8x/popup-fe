@@ -27,18 +27,19 @@ app.use(
 const cache = {}
 
 app.get('*', async (req, res) => {
-  if (cache[req.path]) {
-    console.log('CACHE: ', req.path)
-    res.send(cache[req.path])
+  const url = req.originalUrl
+  if (cache[url]) {
+    console.log('CACHE: ', url)
+    res.send(cache[url])
     return
   }
   const options = {
     headers,
-    url: `https://restv2.fireant.vn/${req.path}`,
+    url: `https://restv2.fireant.vn${url}`,
   }
   request(options, (error, response, body) => {
-    console.log('FETCH: ', req.path)
-    cache[req.path] = body
+    console.log('FETCH: ', url)
+    cache[url] = body
     res.send(body)
   })
 })
