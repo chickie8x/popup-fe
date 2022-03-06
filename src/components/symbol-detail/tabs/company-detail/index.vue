@@ -9,87 +9,177 @@
         <div class="px-3 py-3 bg-gray-200 shadow overflow-x-scroll">
           <table class="min-w-full divide-y divide-gray-300">
             <thead>
-            <tr>
-              <th  scope="col" colspan="2" class="px-3 py-3 text-left text-sm font-bold text-gray-900 uppercase tracking-wider">THÔNG TIN CƠ BẢN</th>
-              <th scope="col" colspan="2" class="px-3 py-3 text-left text-sm font-bold text-gray-900 uppercase tracking-wider">THÔNG TIN NIÊM YẾT</th>
-            </tr>
+              <tr>
+                <th
+                  scope="col"
+                  colspan="2"
+                  class="px-3 py-3 text-left text-sm font-bold text-gray-900 uppercase tracking-wider"
+                >
+                  THÔNG TIN CƠ BẢN
+                </th>
+                <th
+                  scope="col"
+                  colspan="2"
+                  class="px-3 py-3 text-left text-sm font-bold text-gray-900 uppercase tracking-wider"
+                >
+                  THÔNG TIN NIÊM YẾT
+                </th>
+              </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-            </tbody>
+            <tbody class="bg-white divide-y divide-gray-200"></tbody>
 
-            <tr
-                v-for="row in companyInfo"
-                :key="row.key"
-            >
+            <tr v-for="row in companyInfo" :key="row.key">
               <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-800">
-                {{row[0].name}}
+                {{ row[0].name }}
               </td>
-              <td class="px-3 py-3 whitespace-nowrap text-sm text-right font-bold text-gray-900">
+              <td
+                class="px-3 py-3 whitespace-nowrap text-sm text-right font-bold text-gray-900"
+              >
                 {{ profile[row[0].key] }}
               </td>
               <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-800">
-                {{row[1].name}}
+                {{ row[1].name }}
               </td>
-              <td class="px-3 py-3 whitespace-nowrap text-sm text-right font-bold text-gray-900">
+              <td
+                class="px-3 py-3 whitespace-nowrap text-sm text-right font-bold text-gray-900"
+              >
                 {{ profile[row[1].key] }}
               </td>
             </tr>
           </table>
         </div>
 
-        <div class="px-3 py-3 bg-gray-200 shadow overflow-x-scroll">
+        <div v-if="subCompany.length>0" class="px-3 py-3 bg-gray-200 shadow overflow-x-scroll">
           <table class="min-w-full divide-y divide-gray-300">
             <thead>
-            <tr>
-              <th  scope="col" class="px-3 py-3 text-left text-sm font-bold text-gray-900 uppercase tracking-wider">CÔNG TY CON</th>
-              <th scope="col" class="px-3 py-3 text-sm text-right font-bold text-gray-900 uppercase tracking-wider">VỐN ĐIỀU LỆ</th>
-              <th scope="col" class="px-3 py-3 text-sm text-right font-bold text-gray-900 uppercase tracking-wider">TỶ LỆ (%)</th>
-            </tr>
+              <tr>
+                <th
+                  scope="col"
+                  class="px-3 py-3 text-left text-sm font-bold text-gray-900 uppercase tracking-wider"
+                >
+                  CÔNG TY CON
+                </th>
+                <th
+                  scope="col"
+                  class="px-3 py-3 text-sm text-right font-bold text-gray-900 uppercase tracking-wider"
+                >
+                  VỐN ĐIỀU LỆ
+                </th>
+                <th
+                  scope="col"
+                  class="px-3 py-3 text-sm text-right font-bold text-gray-900 uppercase tracking-wider"
+                >
+                  TỶ LỆ (%)
+                </th>
+              </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-            </tbody>
+            <tbody class="bg-white divide-y divide-gray-200"></tbody>
 
             <tr
-                v-for="row in subCompany"
-                :key="row.institutionID"
+              v-for="row in subCompany"
+              :key="row.institutionID"
+              class="hover:bg-gray-300 hover:cursor-pointer"
+              @click="
+                routeToSymbol(row.symbol ? row.symbol : row.institutionID)
+              "
             >
-              <td class="px-3 py-3 whitespace-nowrap text-sm font-bold text-gray-900">
-                {{ row.companyName }} {{row.symbol ? '(' + row.symbol + ':' + row.exchange + ')' : '' }}
+              <td
+                class="px-3 py-3 whitespace-nowrap text-sm font-bold text-gray-900"
+              >
+                {{ row.companyName }}
+                {{
+                  row.symbol ? '(' + row.symbol + ':' + row.exchange + ')' : ''
+                }}
               </td>
-              <td class="px-3 py-3 whitespace-nowrap text-sm text-right text-gray-800">
-                {{ row.charterCapital ? new Intl.NumberFormat('vi', {compactDisplay:'long', notation: 'compact'}).format(row.charterCapital) : '' }}
+              <td
+                class="px-3 py-3 whitespace-nowrap text-sm text-right text-gray-800"
+              >
+                {{
+                  row.charterCapital
+                    ? new Intl.NumberFormat('vi', {
+                        compactDisplay: 'long',
+                        notation: 'compact',
+                      }).format(row.charterCapital)
+                    : ''
+                }}
               </td>
-              <td class="px-3 py-3 whitespace-nowrap text-sm text-right font-bold text-gray-900">
-                {{ Intl.NumberFormat('en', {minimumFractionDigits: 2, maximumFractionDigits:2}).format(row.ownership*100) }}
+              <td
+                class="px-3 py-3 whitespace-nowrap text-sm text-right font-bold text-gray-900"
+              >
+                {{
+                  Intl.NumberFormat('en', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }).format(row.ownership * 100)
+                }}
               </td>
             </tr>
           </table>
         </div>
 
-        <div class="px-3 py-3 bg-gray-200 shadow overflow-x-scroll">
+        <div v-if="linkCompany.length>0"  class="px-3 py-3 bg-gray-200 shadow overflow-x-scroll">
           <table class="min-w-full divide-y divide-gray-300">
             <thead>
-            <tr>
-              <th  scope="col" class="px-3 py-3 text-left text-sm font-bold text-gray-900 uppercase tracking-wider">CÔNG TY CON</th>
-              <th scope="col" class="px-3 py-3 text-sm text-right font-bold text-gray-900 uppercase tracking-wider">VỐN ĐIỀU LỆ</th>
-              <th scope="col" class="px-3 py-3 text-sm text-right font-bold text-gray-900 uppercase tracking-wider">TỶ LỆ (%)</th>
-            </tr>
+              <tr>
+                <th
+                  scope="col"
+                  class="px-3 py-3 text-left text-sm font-bold text-gray-900 uppercase tracking-wider"
+                >
+                  CÔNG TY LIÊN KẾT
+                </th>
+                <th
+                  scope="col"
+                  class="px-3 py-3 text-sm text-right font-bold text-gray-900 uppercase tracking-wider"
+                >
+                  VỐN ĐIỀU LỆ
+                </th>
+                <th
+                  scope="col"
+                  class="px-3 py-3 text-sm text-right font-bold text-gray-900 uppercase tracking-wider"
+                >
+                  TỶ LỆ (%)
+                </th>
+              </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-            </tbody>
+            <tbody class="bg-white divide-y divide-gray-200"></tbody>
 
             <tr
-                v-for="row in linkCompany"
-                :key="row.institutionID"
+              v-for="row in linkCompany"
+              :key="row.institutionID"
+              class="hover:bg-gray-300 hover:cursor-pointer"
+              @click="
+                routeToSymbol(row.symbol ? row.symbol : row.institutionID)
+              "
             >
-              <td class="px-3 py-3 whitespace-nowrap text-sm font-bold text-gray-900">
-                {{ row.companyName }} {{row.symbol ? '(' + row.symbol + ':' + row.exchange + ')' : '' }}
+              <td
+                class="px-3 py-3 whitespace-nowrap text-sm font-bold text-gray-900"
+              >
+                {{ row.companyName }}
+                {{
+                  row.symbol ? '(' + row.symbol + ':' + row.exchange + ')' : ''
+                }}
               </td>
-              <td class="px-3 py-3 whitespace-nowrap text-sm text-right text-gray-800">
-                {{ row.charterCapital ? new Intl.NumberFormat('vi', {compactDisplay:'long', notation: 'compact'}).format(row.charterCapital) : '' }}
+              <td
+                class="px-3 py-3 whitespace-nowrap text-sm text-right text-gray-800"
+              >
+                {{
+                  row.charterCapital
+                    ? new Intl.NumberFormat('vi', {
+                        compactDisplay: 'long',
+                        notation: 'compact',
+                      }).format(row.charterCapital)
+                    : ''
+                }}
               </td>
-              <td class="px-3 py-3 whitespace-nowrap text-sm text-right font-bold text-gray-900">
-                {{ Intl.NumberFormat('en', {minimumFractionDigits: 2, maximumFractionDigits:2}).format(row.ownership*100) }}
+              <td
+                class="px-3 py-3 whitespace-nowrap text-sm text-right font-bold text-gray-900"
+              >
+                {{
+                  Intl.NumberFormat('en', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }).format(row.ownership * 100)
+                }}
               </td>
             </tr>
           </table>
@@ -124,14 +214,29 @@
 <script>
 import axios from 'axios'
 import { ref } from 'vue'
-import {useRoute} from "vue-router";
+import { useRoute, useRouter } from 'vue-router'
 
 const companyInfo = [
-  [{name: 'Mã SIC', key: 'symbol'}, {name: 'Ngày niêm yết', key:'dateOfListing'}],
-  [{name: 'Mã ngành ICB', key: 'icbCode'}, {name: 'Nơi niêm yết', key:'exchange'}],
-  [{name: 'Năm thành lập', key: 'establishmentDate'}, {name: 'Giá chào sàn (VNĐ)', key:'initialListingPrice'}],
-  [{name: 'Vốn điều lệ', key: 'listingVolume'}, {name: 'Ngày phát hành cuối', key:'dateOfIssue'}],
-  [{name: 'Số lượng nhân sự', key: 'employees'}, {name: 'KL đang niêm yết', key:'charterCapital'}]
+  [
+    { name: 'Mã SIC', key: 'symbol' },
+    { name: 'Ngày niêm yết', key: 'dateOfListing' },
+  ],
+  [
+    { name: 'Mã ngành ICB', key: 'icbCode' },
+    { name: 'Nơi niêm yết', key: 'exchange' },
+  ],
+  [
+    { name: 'Năm thành lập', key: 'establishmentDate' },
+    { name: 'Giá chào sàn (VNĐ)', key: 'initialListingPrice' },
+  ],
+  [
+    { name: 'Vốn điều lệ', key: 'listingVolume' },
+    { name: 'Ngày phát hành cuối', key: 'dateOfIssue' },
+  ],
+  [
+    { name: 'Số lượng nhân sự', key: 'employees' },
+    { name: 'KL đang niêm yết', key: 'charterCapital' },
+  ],
 ]
 
 export default {
@@ -139,6 +244,7 @@ export default {
 
   setup() {
     const route = useRoute()
+    const router = useRouter()
     const profile = ref({})
     const officers = ref([])
     const subCompany = ref([])
@@ -149,13 +255,34 @@ export default {
       .get(`/api/symbols/${symbol}/profile`)
       .then((res) => {
         profile.value = res.data
-        profile.value.dateOfListing = new Intl.DateTimeFormat('vi', {month:'2-digit',day:'2-digit', year:'numeric'}).format(new Date(profile.value.dateOfListing))
-        profile.value.establishmentDate = new Intl.DateTimeFormat('vi', {month:'2-digit',day:'2-digit', year:'numeric'}).format(new Date(profile.value.establishmentDate))
-        profile.value.dateOfIssue = new Intl.DateTimeFormat('vi', {month:'2-digit',day:'2-digit', year:'numeric'}).format(new Date(profile.value.dateOfIssue))
-        profile.value.initialListingPrice = new Intl.NumberFormat('en').format(profile.value.initialListingPrice)
-        profile.value.employees = new Intl.NumberFormat('en').format(profile.value.employees)
-        profile.value.charterCapital = new Intl.NumberFormat('en').format(profile.value.charterCapital/10000)
-        profile.value.listingVolume = new Intl.NumberFormat('vi', {compactDisplay:'long', notation: 'compact'}).format(profile.value.listingVolume*10000)
+        profile.value.dateOfListing = new Intl.DateTimeFormat('vi', {
+          month: '2-digit',
+          day: '2-digit',
+          year: 'numeric',
+        }).format(new Date(profile.value.dateOfListing))
+        profile.value.establishmentDate = new Intl.DateTimeFormat('vi', {
+          month: '2-digit',
+          day: '2-digit',
+          year: 'numeric',
+        }).format(new Date(profile.value.establishmentDate))
+        profile.value.dateOfIssue = new Intl.DateTimeFormat('vi', {
+          month: '2-digit',
+          day: '2-digit',
+          year: 'numeric',
+        }).format(new Date(profile.value.dateOfIssue))
+        profile.value.initialListingPrice = new Intl.NumberFormat('en').format(
+          profile.value.initialListingPrice,
+        )
+        profile.value.employees = new Intl.NumberFormat('en').format(
+          profile.value.employees,
+        )
+        profile.value.charterCapital = new Intl.NumberFormat('en').format(
+          profile.value.charterCapital / 10000,
+        )
+        profile.value.listingVolume = new Intl.NumberFormat('vi', {
+          compactDisplay: 'long',
+          notation: 'compact',
+        }).format(profile.value.listingVolume * 10000)
       })
       .catch((err) => {
         console.log(err)
@@ -177,19 +304,23 @@ export default {
       })
 
     axios
-        .get(`/api/symbols/${symbol}/subsidiaries`)
-        .then((res) => {
-          for (const childCompany of res.data) {
-            if (childCompany.type === 0) {
-              subCompany.value.push(childCompany)
-            } else if (childCompany.type === 1) {
-              linkCompany.value.push(childCompany)
-            }
+      .get(`/api/symbols/${symbol}/subsidiaries`)
+      .then((res) => {
+        for (const childCompany of res.data) {
+          if (childCompany.type === 0) {
+            subCompany.value.push(childCompany)
+          } else if (childCompany.type === 1) {
+            linkCompany.value.push(childCompany)
           }
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+    const routeToSymbol = (routeSymbol) => {
+      router.push({ path: `/entry/symbols/${routeSymbol}` })
+    }
 
     return {
       profile,
@@ -197,6 +328,7 @@ export default {
       companyInfo,
       subCompany,
       linkCompany,
+      routeToSymbol,
     }
   },
 }
