@@ -27,11 +27,12 @@
             </h4>
             <div class="mt-4 text-gray-900 text-base">
               {{ profile.institutionName }} (Mã CK:
-              <a
-                :href="'/entry/symbols/' + profile.institutionSymbol"
+              <router-link
+                :to="`/entry/symbols/${profile.institutionSymbol}`"
                 class="text-sky-700 hover:underline"
-                >{{ profile.institutionSymbol }}</a
-              >)
+              >
+                {{ profile.institutionSymbol }}
+              </router-link>)
             </div>
             <div class="text-gray-900 text-base">
               Tuổi:
