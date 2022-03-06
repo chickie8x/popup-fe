@@ -49,7 +49,10 @@
           </table>
         </div>
 
-        <div v-if="subCompany.length>0" class="px-3 py-3 bg-gray-200 shadow overflow-x-scroll">
+        <div
+          v-if="subCompany.length > 0"
+          class="px-3 py-3 bg-gray-200 shadow overflow-x-scroll"
+        >
           <table class="min-w-full divide-y divide-gray-300">
             <thead>
               <tr>
@@ -117,7 +120,10 @@
           </table>
         </div>
 
-        <div v-if="linkCompany.length>0"  class="px-3 py-3 bg-gray-200 shadow overflow-x-scroll">
+        <div
+          v-if="linkCompany.length > 0"
+          class="px-3 py-3 bg-gray-200 shadow overflow-x-scroll"
+        >
           <table class="min-w-full divide-y divide-gray-300">
             <thead>
               <tr>
@@ -191,11 +197,13 @@
       class="flex flex-shrink-0 w-72 border-r border-gray-200 bg-sky-100 overflow-y-scroll"
     >
       <div class="inset-0 py-3 px-2">
+        <h2 class="font-bold text-lg text-sky-800">Ban lãnh đạo</h2>
         <ul role="list" class="divide-y divide-gray-200">
           <li
             v-for="person in officers"
             :key="person.individualID"
-            class="py-4 flex"
+            class="py-4 flex hover:bg-blue-200 hover:cursor-pointer"
+            @click="routeToMember(person.individualID)"
           >
             <img class="h-13 w-13 rounded-full" :src="person.image" alt="" />
             <div class="ml-3">
@@ -322,6 +330,10 @@ export default {
       router.push({ path: `/entry/symbols/${routeSymbol}` })
     }
 
+    const routeToMember = (routeMember) => {
+      router.push({ path: `/entry/members/${routeMember}` })
+    }
+
     return {
       profile,
       officers,
@@ -329,6 +341,7 @@ export default {
       subCompany,
       linkCompany,
       routeToSymbol,
+      routeToMember,
     }
   },
 }
