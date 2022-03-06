@@ -6,27 +6,29 @@
     >
         <ListNewsItem v-for="(item, index) in listItems" :key="index" :post="item" />
     </div>
-    <button @click="sendEmit">Send Emit</button>
 </template>
 
 <script>
 import ListNewsItem from "./ListNewsItem.vue";
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref } from 'vue'
 export default {
     props: ['listItems'],
     components: { ListNewsItem },
 
     setup(_, context) {
         const scrollElement = ref(null)
+        const scrollH=ref(1500)
         function sendEmit(e) {
             const element = scrollElement.value
-            if (element.getBoundingClientRect().bottom < window.innerHeight) {
+            if (element.scrollTop > scrollH.value) {
                 context.emit('loadmoreposts')
+                scrollH.value +=1500
             }  
         }
         return {
             sendEmit,
             scrollElement,
+            scrollH,
         }
     }
 }

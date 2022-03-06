@@ -8,17 +8,21 @@
 <script>
 import axios from 'axios'
 import { ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import ListNews from './ListNews.vue'
 export default {
 
   name: "News",
   components: { ListNews },
 
-  setup() {
-    const symbol = ref('ACB')
+  setup(_,context) {
+    const route = useRoute()
+    const router = useRouter()
+    const symbol = ref(route.params.symbol)
     const offset = ref(0)
     const limit = ref(20)
     const newsItems = ref([])
+    console.log(context.route)
     axios.get(`/api/posts?symbol=${symbol.value}&type=1&offset=${offset.value}&limit=${limit}`)
       .then((res) => {
         newsItems.value = res.data;
