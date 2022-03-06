@@ -15,14 +15,14 @@ export default {
   name: "News",
   components: { ListNews },
 
-  setup(_,context) {
+  setup() {
     const route = useRoute()
     const router = useRouter()
     const symbol = ref(route.params.symbol)
     const offset = ref(0)
     const limit = ref(20)
     const newsItems = ref([])
-    console.log(context.route)
+    console.log(route.params.symbol)
     axios.get(`/api/posts?symbol=${symbol.value}&type=1&offset=${offset.value}&limit=${limit}`)
       .then((res) => {
         newsItems.value = res.data;
