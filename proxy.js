@@ -35,7 +35,7 @@ app.get('*', async (req, res) => {
   }
   const options = {
     headers,
-    url: `https://restv2.fireant.vn${url}`,
+    url: `http://112.213.94.77:1995${url}`,
   }
   request(options, (error, response, body) => {
     console.log('FETCH: ', url)
