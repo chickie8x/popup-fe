@@ -31,8 +31,8 @@
                 :to="`/entry/symbols/${profile.institutionSymbol}`"
                 class="text-sky-700 hover:underline"
               >
-                {{ profile.institutionSymbol }}
-              </router-link>)
+                {{ profile.institutionSymbol }} </router-link
+              >)
             </div>
             <div class="text-gray-900 text-base">
               Tuổi:
