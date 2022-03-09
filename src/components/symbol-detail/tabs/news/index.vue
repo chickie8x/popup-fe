@@ -22,7 +22,7 @@ export default {
     console.log(route.params.symbol)
     axios
       .get(
-        `/api/posts?symbol=${symbol.value}&type=1&offset=${offset.value}&limit=${limit}`,
+        `/api/news/${symbol.value}?offset=${offset.value}&limit=${limit.value}`,
       )
       .then((res) => {
         newsItems.value = res.data
@@ -41,7 +41,7 @@ export default {
       offset.value += 20
       axios
         .get(
-          `/api/posts?symbol=${symbol.value}&type=1&offset=${offset.value}&limit=${limit}`,
+          `/api/news/${symbol.value}?offset=${offset.value}&limit=${limit.value}`,
         )
         .then((res) => {
           let addedItems = res.data

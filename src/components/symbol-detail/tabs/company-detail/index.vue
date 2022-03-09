@@ -260,7 +260,7 @@ export default {
     const symbol = route.params.symbol
 
     axios
-      .get(`/api/symbols/${symbol}/profile`)
+      .get(`/api/{info_name}/${symbol}/?info=profile`)
       .then((res) => {
         profile.value = res.data
         profile.value.dateOfListing = new Intl.DateTimeFormat('vi', {
@@ -297,7 +297,7 @@ export default {
       })
 
     axios
-      .get(`/api/symbols/${symbol}/officers`)
+      .get(`/api/{info_name}/${symbol}/?info=officers`)
       .then((res) => {
         officers.value = res.data
         for (const person of officers.value) {
