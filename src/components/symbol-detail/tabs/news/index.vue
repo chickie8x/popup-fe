@@ -22,7 +22,7 @@ export default {
     console.log(route.params.symbol)
     axios
       .get(
-        `/api/news/${symbol.value}?offset=${offset.value}&limit=${limit.value}`,
+        `/news?code=${symbol.value}&offset=${offset.value}&limit=${limit.value}`,
       )
       .then((res) => {
         newsItems.value = res.data

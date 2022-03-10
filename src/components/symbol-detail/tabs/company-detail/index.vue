@@ -260,7 +260,7 @@ export default {
     const symbol = route.params.symbol
 
     axios
-      .get(`/api/{info_name}/${symbol}/?info=profile`)
+      .get(`/profile/${symbol}`)
       .then((res) => {
         profile.value = res.data
         profile.value.dateOfListing = new Intl.DateTimeFormat('vi', {

@@ -24,16 +24,6 @@
   </TransitionRoot>
 </template>
 
-<script>
+<script setup>
 import { Dialog, TransitionRoot, TransitionChild } from '@headlessui/vue'
-
-export default {
-  name: 'Entry',
-
-  components: {
-    Dialog,
-    TransitionChild,
-    TransitionRoot,
-  },
-}
 </script>

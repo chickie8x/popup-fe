@@ -4,11 +4,10 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "proxy": "node proxy",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "vue-cli-service lint",
-    "format": "prettier .  --write"
+    "format": "prettier . --write"
   },
   "dependencies": {
     "@headlessui/vue": "^1.5.0",
