@@ -23,7 +23,7 @@ export default {
     listItems: {
       type: Array,
       required: true,
-    }
+    },
   },
 
   setup(_, context) {
