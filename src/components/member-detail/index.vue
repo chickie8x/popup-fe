@@ -12,10 +12,10 @@
       </div>
 
       <div class="flex bg-slate-100 mt-4">
-        <aside class="flex flex-shrink-0 w-72 text-center mr-3">
+        <aside class="flex flex-shrink-0 w-72 text-center px-3">
           <div class="flex-1 flex flex-col mt-3">
             <img
-              class="w-36 h-36 flex-shrink-0 mx-auto rounded-full"
+              class="w-36 h-36 flex-shrink-0 rounded-full mx-auto"
               :src="profile.photoURL"
               alt=""
             />
