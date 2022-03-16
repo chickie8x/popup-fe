@@ -25,7 +25,7 @@
             <h4 class="mt-4 text-gray-900 text-sm font-bold">
               {{ profile.positionName }}
             </h4>
-            <div class="mt-4 text-gray-900 text-base">
+            <div v-if="profile.institutionSymbol" class="mt-4 text-gray-900 text-base">
               {{ profile.institutionName }} (Mã CK:
               <router-link
                 :to="`/entry/symbols/${profile.institutionSymbol}`"
@@ -33,6 +33,9 @@
               >
                 {{ profile.institutionSymbol }} </router-link
               >)
+            </div>
+            <div v-else class="mt-4 text-gray-900 text-base">
+              {{ profile.institutionName }}
             </div>
             <div class="text-gray-900 text-base">
               Tuổi:
@@ -47,7 +50,12 @@
             >
               Tổng tài sản
               <div class="font-bold">
-                {{ profile.asset }}
+                {{
+                  new Intl.NumberFormat('vi', {
+                    compactDisplay: 'long',
+                    notation: 'compact',
+                  }).format(profile.asset)
+                }}
               </div>
             </div>
           </div>
@@ -62,7 +70,7 @@
             <div class="mt-4">
               <component
                 :is="tab.component"
-                :bio="profile.bio"
+                :get-officer="getOfficer"
                 class="border-2 rounded-md h-[511px]"
               />
             </div>
@@ -74,7 +82,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import axios from 'axios'
 import { useRoute } from 'vue-router'
 import { DialogTitle } from '@headlessui/vue'
@@ -93,23 +101,48 @@ export default {
   setup() {
     // data
     const route = useRoute()
+    const getOfficer = ref(null)
     const profile = ref(null)
-    const memberId = route.params.id
+    let memberId = route.params.id
+    const hostImage = 'http://112.213.94.77:1995'
 
     // methods
     const fetchProfile = async () => {
-      profile.value = await (
-        await axios.get(`/api/individuals/${memberId}/profile`)
-      ).data
+      getOfficer.value = await (await axios.get(`/individual/${memberId}`)).data
+      profile.value = getOfficer.value.profile
+      if (!profile.value.photoURL) {
+        profile.value.photoURL =
+          hostImage + `/static/individuals/${memberId}.png?width=200&height=200`
+      }
+      const dateToken = profile.value.dateOfBirth.split('/')
+      const dob = new Date(dateToken[2], dateToken[1], dateToken[0])
+      profile.value.dateOfBirth = new Date().getFullYear() - dob.getFullYear()
+      profile.value.education = convertEducation(profile.value.education)
     }
+
+    const convertEducation = (number) => {
+      switch (number) {
+        case 3:
+          return 'Cử nhân'
+        case 4:
+          return 'Thạc sĩ'
+        case 5:
+          return 'Tiến sĩ'
+      }
+    }
+
     onMounted(() => {
       fetchProfile()
     })
+
+    watch(() => route.params)
+
     const tab = ref(tabs[0])
     return {
       tab,
       tabs,
       profile,
+      getOfficer,
     }
   },
 }

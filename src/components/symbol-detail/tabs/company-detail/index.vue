@@ -205,7 +205,11 @@
             class="py-4 flex hover:bg-blue-200 hover:cursor-pointer"
             @click="routeToMember(person.individualID)"
           >
-            <img class="h-13 w-13 rounded-full" :src="person.image" alt="" />
+            <img
+              class="h-13 w-13 rounded-full"
+              :src="person.image_path"
+              alt=""
+            />
             <div class="ml-3">
               <p class="text-base font-bold text-gray-900">
                 {{ person.name }}
@@ -221,7 +225,7 @@
 
 <script>
 import axios from 'axios'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const companyInfo = [
@@ -258,73 +262,81 @@ export default {
     const subCompany = ref([])
     const linkCompany = ref([])
     const symbol = route.params.symbol
+    const hostImage = 'http://112.213.94.77:1995'
 
-    axios
-      .get(`/profile/${symbol}`)
-      .then((res) => {
-        profile.value = res.data
-        profile.value.dateOfListing = new Intl.DateTimeFormat('vi', {
-          month: '2-digit',
-          day: '2-digit',
-          year: 'numeric',
-        }).format(new Date(profile.value.dateOfListing))
-        profile.value.establishmentDate = new Intl.DateTimeFormat('vi', {
-          month: '2-digit',
-          day: '2-digit',
-          year: 'numeric',
-        }).format(new Date(profile.value.establishmentDate))
-        profile.value.dateOfIssue = new Intl.DateTimeFormat('vi', {
-          month: '2-digit',
-          day: '2-digit',
-          year: 'numeric',
-        }).format(new Date(profile.value.dateOfIssue))
-        profile.value.initialListingPrice = new Intl.NumberFormat('en').format(
-          profile.value.initialListingPrice,
-        )
-        profile.value.employees = new Intl.NumberFormat('en').format(
-          profile.value.employees,
-        )
-        profile.value.charterCapital = new Intl.NumberFormat('en').format(
-          profile.value.charterCapital / 10000,
-        )
-        profile.value.listingVolume = new Intl.NumberFormat('vi', {
-          compactDisplay: 'long',
-          notation: 'compact',
-        }).format(profile.value.listingVolume * 10000)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    const fetchProfile = () => {
+      axios
+        .get(`/profile/${symbol}`)
+        .then((res) => {
+          profile.value = res.data
+          profile.value.dateOfListing = new Intl.DateTimeFormat('vi', {
+            month: '2-digit',
+            day: '2-digit',
+            year: 'numeric',
+          }).format(new Date(profile.value.dateOfListing))
+          profile.value.establishmentDate = new Intl.DateTimeFormat('vi', {
+            month: '2-digit',
+            day: '2-digit',
+            year: 'numeric',
+          }).format(new Date(profile.value.establishmentDate))
+          profile.value.dateOfIssue = new Intl.DateTimeFormat('vi', {
+            month: '2-digit',
+            day: '2-digit',
+            year: 'numeric',
+          }).format(new Date(profile.value.dateOfIssue))
+          profile.value.initialListingPrice = new Intl.NumberFormat(
+            'en',
+          ).format(profile.value.initialListingPrice)
+          profile.value.employees = new Intl.NumberFormat('en').format(
+            profile.value.employees,
+          )
+          profile.value.charterCapital = new Intl.NumberFormat('en').format(
+            profile.value.charterCapital / 10000,
+          )
+          profile.value.listingVolume = new Intl.NumberFormat('vi', {
+            compactDisplay: 'long',
+            notation: 'compact',
+          }).format(profile.value.listingVolume * 10000)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
 
-    axios
-      .get(`/api/{info_name}/${symbol}/?info=officers`)
-      .then((res) => {
-        officers.value = res.data
-        for (const person of officers.value) {
-          person.image =
-            'https://static.fireant.vn/individuals/photo/' +
-            person.individualID +
-            '?width=75&height=75'
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-
-    axios
-      .get(`/api/symbols/${symbol}/subsidiaries`)
-      .then((res) => {
-        for (const childCompany of res.data) {
-          if (childCompany.type === 0) {
-            subCompany.value.push(childCompany)
-          } else if (childCompany.type === 1) {
-            linkCompany.value.push(childCompany)
+    const fetchOfficers = () => {
+      axios
+        .get(`/officers/${symbol}`)
+        .then((res) => {
+          officers.value = res.data
+          for (const person of officers.value) {
+            person.image_path =
+              hostImage +
+              '/static/individuals/' +
+              person.individualID +
+              '.png?width=75&height=75'
           }
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+
+    const fetchSubsidiaries = () => {
+      axios
+        .get(`/subsidiaries/${symbol}`)
+        .then((res) => {
+          for (const childCompany of res.data) {
+            if (childCompany.type === 0) {
+              subCompany.value.push(childCompany)
+            } else if (childCompany.type === 1) {
+              linkCompany.value.push(childCompany)
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
 
     const routeToSymbol = (routeSymbol) => {
       router.push({ path: `/entry/symbols/${routeSymbol}` })
@@ -333,6 +345,12 @@ export default {
     const routeToMember = (routeMember) => {
       router.push({ path: `/entry/members/${routeMember}` })
     }
+
+    onMounted(() => {
+      fetchProfile()
+      fetchOfficers()
+      fetchSubsidiaries()
+    })
 
     return {
       profile,

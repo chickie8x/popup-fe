@@ -4,7 +4,7 @@
       <div class="px-2 py-2 profile-bio" v-html="bio" />
     </div>
 
-    <div class="inset-0 py-3 px-2 mx-4 mb-4 bg-gray-100 rounded-lg">
+    <div v-show="jobs" class="inset-0 py-3 px-2 mx-4 mb-4 bg-gray-100 rounded-lg">
       <div class="font-bold">CÔNG VIỆC HIỆN TẠI</div>
       <ul role="list" class="divide-y divide-gray-200">
         <li
@@ -16,13 +16,21 @@
             <p class="text-base font-bold text-gray-900">
               {{ job.positionName }}
             </p>
-            <p class="text-sm text-gray-900">{{ job.institutionName }}</p>
+            <p v-if="job.institutionSymbol" class="text-sm text-gray-900">{{ job.institutionName }} (Mã CK:
+              <router-link
+                  :to="`/entry/symbols/${job.institutionSymbol}`"
+                  class="text-sky-700 hover:underline"
+              >
+                {{ job.institutionSymbol }} </router-link
+              >)
+            </p>
+            <p v-else class="text-sm text-gray-900">{{ job.institutionName }}</p>
           </div>
         </li>
       </ul>
     </div>
 
-    <div class="inset-0 py-3 px-2 mx-4 mb-4 bg-gray-100 rounded-lg">
+    <div v-show="assets" class="inset-0 py-3 px-2 mx-4 mb-4 bg-gray-100 rounded-lg">
       <div class="font-bold">TÀI SẢN</div>
       <ul role="list" class="divide-y divide-gray-200">
         <li
@@ -35,20 +43,27 @@
               {{ asset.institutionName }}
             </p>
             <p class="text-sm text-gray-900">
-              Đã niêm yết (Mã CK: {{ asset.institutionSymbol }})
+              Đã niêm yết (Mã CK:
+              <router-link
+                  :to="`/entry/symbols/${asset.institutionSymbol}`"
+                  class="text-sky-700 hover:underline"
+              >
+                {{ asset.institutionSymbol }} </router-link
+              >)
             </p>
           </div>
         </li>
       </ul>
     </div>
 
-    <div class="inset-0 py-3 px-2 mx-4 mb-4 bg-gray-100 rounded-lg">
+    <div v-show="relations" class="inset-0 py-3 px-2 mx-4 mb-4 bg-gray-100 rounded-lg">
       <div class="font-bold">NGUỜI THÂN</div>
       <ul role="list" class="divide-y divide-gray-200">
         <li
           v-for="(relation, index) in relations"
           :key="index"
           class="py-2 px-2 flex hover:bg-gray-200 hover:cursor-pointer"
+          @click="routeToMember(relation.relatedIndividual.individualID)"
         >
           <img class="h-13 w-13 rounded-full" :src="relation.image" alt="" />
           <div class="ml-3">
@@ -56,7 +71,17 @@
               {{ relation.relatedIndividual.name }}
             </p>
             <p class="text-sm text-gray-900">{{ relation.relationName }}</p>
-            <p class="text-sm text-gray-900">
+            <p v-if="relation.relatedIndividual.institutionSymbol" class="text-sm text-gray-900">
+              {{ relation.relatedIndividual.positionName }} -
+              {{ relation.relatedIndividual.institutionName }} (Mã CK:
+              <router-link
+                  :to="`/entry/symbols/${relation.relatedIndividual.institutionSymbol}`"
+                  class="text-sky-700 hover:underline"
+              >
+                {{ relation.relatedIndividual.institutionSymbol }} </router-link
+              >)
+            </p>
+            <p v-else class="text-sm text-gray-900">
               {{ relation.relatedIndividual.positionName }} -
               {{ relation.relatedIndividual.institutionName }}
             </p>
@@ -68,49 +93,56 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-import axios from 'axios'
-import { useRoute } from 'vue-router'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'Profile',
 
   props: {
-    bio: {
-      type: String,
+    getOfficer: {
+      type: Object,
       required: true,
     },
   },
 
-  setup() {
+  setup(props) {
     const jobs = ref([])
     const assets = ref([])
     const relations = ref([])
-    const route = useRoute()
-    const memberId = route.params.id
+    const bio = ref(null)
+    const router = useRouter()
+    // const memberId = route.params.id
+    const hostImage = 'http://112.213.94.77:1995'
 
-    axios.get(`/api/individuals/${memberId}/jobs`).then((res) => {
-      jobs.value = res.data
-    })
-
-    axios.get(`/api/individuals/${memberId}/assets`).then((res) => {
-      assets.value = res.data
-    })
-
-    axios.get(`/api/individuals/${memberId}/relations`).then((res) => {
-      relations.value = res.data
+    const fetchOfficer = () => {
+      bio.value = props.getOfficer.profile.bio
+      relations.value = props.getOfficer.relations
+      jobs.value = props.getOfficer.jobs
+      assets.value = props.getOfficer.assets
       for (const person of relations.value) {
         person.image =
-          'https://static.fireant.vn/individuals/photo/' +
+          hostImage +
+          `/static/individuals/` +
           person.relatedIndividual.individualID +
-          '?width=65&height=65'
+          '.png?width=65&height=65'
       }
+    }
+
+    onMounted(() => {
+      fetchOfficer()
     })
+
+    const routeToMember = (routeMember) => {
+      router.push({ path: `/entry/members/${routeMember}` })
+    }
 
     return {
       jobs,
       assets,
       relations,
+      bio,
+      routeToMember,
     }
   },
 }
