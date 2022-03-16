@@ -78,9 +78,9 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import { useRoute } from 'vue-router'
 import { DialogTitle } from '@headlessui/vue'
-import CTabs from '../kits/tabs/index.vue'
-import NavRouter from '../kits/nav-router/index.vue'
-import tabs from './tabs.js'
+import CTabs from '../../kits/tabs/index.vue'
+import NavRouter from '../../kits/nav-router/index.vue'
+import tabs from '../tabs.js'
 
 export default {
   name: 'MemberDetail',
@@ -101,9 +101,6 @@ export default {
       profile.value = await (
         await axios.get(`/api/individuals/${memberId}/profile`)
       ).data
-      if (!profile.value.photoURL) {
-        profile.value.photoURL = `https://static.fireant.vn/individuals/photo/${memberId}?width=200&height=200`
-      }
     }
     onMounted(() => {
       fetchProfile()

@@ -14,7 +14,7 @@ import { useRoute } from 'vue-router'
 export default {
   setup() {
     const route = useRoute()
-    const symbol = route.symbol || 'FPT'
+    const symbol = route.query.symbol || 'FPT'
     const ifSrc = `/entry/symbols/${symbol.toUpperCase()}`
     return {
       ifSrc,

@@ -21,6 +21,11 @@ const router = createRouter({
         },
       ],
     },
+    {
+      path: '/news/:id',
+      component: () =>
+        import('../components/member-detail/tabs/post/index.vue'),
+    },
   ],
 })
 
