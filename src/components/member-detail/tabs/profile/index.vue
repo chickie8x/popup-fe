@@ -4,7 +4,10 @@
       <div class="px-2 py-2 profile-bio" v-html="bio" />
     </div>
 
-    <div v-show="jobs" class="inset-0 py-3 px-2 mx-4 mb-4 bg-gray-100 rounded-lg">
+    <div
+      v-show="jobs"
+      class="inset-0 py-3 px-2 mx-4 mb-4 bg-gray-100 rounded-lg"
+    >
       <div class="font-bold">CÔNG VIỆC HIỆN TẠI</div>
       <ul role="list" class="divide-y divide-gray-200">
         <li
@@ -16,21 +19,27 @@
             <p class="text-base font-bold text-gray-900">
               {{ job.positionName }}
             </p>
-            <p v-if="job.institutionSymbol" class="text-sm text-gray-900">{{ job.institutionName }} (Mã CK:
+            <p v-if="job.institutionSymbol" class="text-sm text-gray-900">
+              {{ job.institutionName }} (Mã CK:
               <router-link
-                  :to="`/entry/symbols/${job.institutionSymbol}`"
-                  class="text-sky-700 hover:underline"
+                :to="`/entry/symbols/${job.institutionSymbol}`"
+                class="text-sky-700 hover:underline"
               >
                 {{ job.institutionSymbol }} </router-link
               >)
             </p>
-            <p v-else class="text-sm text-gray-900">{{ job.institutionName }}</p>
+            <p v-else class="text-sm text-gray-900">
+              {{ job.institutionName }}
+            </p>
           </div>
         </li>
       </ul>
     </div>
 
-    <div v-show="assets" class="inset-0 py-3 px-2 mx-4 mb-4 bg-gray-100 rounded-lg">
+    <div
+      v-show="assets"
+      class="inset-0 py-3 px-2 mx-4 mb-4 bg-gray-100 rounded-lg"
+    >
       <div class="font-bold">TÀI SẢN</div>
       <ul role="list" class="divide-y divide-gray-200">
         <li
@@ -45,8 +54,8 @@
             <p class="text-sm text-gray-900">
               Đã niêm yết (Mã CK:
               <router-link
-                  :to="`/entry/symbols/${asset.institutionSymbol}`"
-                  class="text-sky-700 hover:underline"
+                :to="`/entry/symbols/${asset.institutionSymbol}`"
+                class="text-sky-700 hover:underline"
               >
                 {{ asset.institutionSymbol }} </router-link
               >)
@@ -56,7 +65,10 @@
       </ul>
     </div>
 
-    <div v-show="relations" class="inset-0 py-3 px-2 mx-4 mb-4 bg-gray-100 rounded-lg">
+    <div
+      v-show="relations"
+      class="inset-0 py-3 px-2 mx-4 mb-4 bg-gray-100 rounded-lg"
+    >
       <div class="font-bold">NGUỜI THÂN</div>
       <ul role="list" class="divide-y divide-gray-200">
         <li
@@ -71,12 +83,15 @@
               {{ relation.relatedIndividual.name }}
             </p>
             <p class="text-sm text-gray-900">{{ relation.relationName }}</p>
-            <p v-if="relation.relatedIndividual.institutionSymbol" class="text-sm text-gray-900">
+            <p
+              v-if="relation.relatedIndividual.institutionSymbol"
+              class="text-sm text-gray-900"
+            >
               {{ relation.relatedIndividual.positionName }} -
               {{ relation.relatedIndividual.institutionName }} (Mã CK:
               <router-link
-                  :to="`/entry/symbols/${relation.relatedIndividual.institutionSymbol}`"
-                  class="text-sky-700 hover:underline"
+                :to="`/entry/symbols/${relation.relatedIndividual.institutionSymbol}`"
+                class="text-sky-700 hover:underline"
               >
                 {{ relation.relatedIndividual.institutionSymbol }} </router-link
               >)

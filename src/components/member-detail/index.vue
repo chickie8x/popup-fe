@@ -25,7 +25,10 @@
             <h4 class="mt-4 text-gray-900 text-sm font-bold">
               {{ profile.positionName }}
             </h4>
-            <div v-if="profile.institutionSymbol" class="mt-4 text-gray-900 text-base">
+            <div
+              v-if="profile.institutionSymbol"
+              class="mt-4 text-gray-900 text-base"
+            >
               {{ profile.institutionName }} (Mã CK:
               <router-link
                 :to="`/entry/symbols/${profile.institutionSymbol}`"
@@ -86,9 +89,9 @@ import { ref, onMounted, watch } from 'vue'
 import axios from 'axios'
 import { useRoute } from 'vue-router'
 import { DialogTitle } from '@headlessui/vue'
-import CTabs from '../../kits/tabs/index.vue'
-import NavRouter from '../../kits/nav-router/index.vue'
-import tabs from '../tabs.js'
+import CTabs from '../kits/tabs/index.vue'
+import NavRouter from '../kits/nav-router/index.vue'
+import tabs from './tabs.js'
 
 export default {
   name: 'MemberDetail',
