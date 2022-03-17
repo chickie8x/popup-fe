@@ -5,13 +5,13 @@
         <div class="inline-block min-w-full py-2 align-middle">
           <div class="shadow-sm ring-1 ring-black ring-opacity-5">
             <table class="min-w-full border-separate" style="border-spacing: 0">
-              <thead class="bg-gray-50">
+              <thead class="">
                 <tr>
                   <th
                     v-for="(header, idx) in headers"
                     :key="idx"
                     scope="col"
-                    class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8"
+                    class="sticky top-0 z-10 bg-white py-2 text-left text-sm font-semibold text-gray-900 sm:pl-6 lg:pl-8"
                   >
                     {{ header }}
                   </th>
@@ -19,7 +19,7 @@
               </thead>
               <tbody v-if="type == 'GQK'" class="bg-white">
                 <tr
-                  v-for="(row, idx) in rows"
+                  v-for="(row, idx) in data"
                   :key="idx"
                   :class="[idx % 2 == 0 ? 'bg-gray-100' : '']"
                 >
@@ -29,7 +29,7 @@
                       'whitespace-nowrap py-3 text-sm text-left text-gray-900 sm:pl-6 lg:pl-8',
                     ]"
                   >
-                    {{ row.date.split('T')[0] }}
+                    {{ $filters.formatDate(row.date) }}
                   </td>
                   <td
                     :class="[
@@ -70,8 +70,8 @@
 
                   <td
                     v-if="
-                      idx < rows.length - 1 &&
-                      row.priceOpen == rows[idx + 1].priceClose
+                      idx < data.length - 1 &&
+                      row.priceOpen == data[idx + 1].priceClose
                     "
                     :class="[
                       ,
@@ -82,8 +82,8 @@
                   </td>
                   <td
                     v-else-if="
-                      idx < rows.length - 1 &&
-                      row.priceOpen > rows[idx + 1].priceClose
+                      idx < data.length - 1 &&
+                      row.priceOpen > data[idx + 1].priceClose
                     "
                     :class="[
                       ,
@@ -94,8 +94,8 @@
                   </td>
                   <td
                     v-else-if="
-                      idx < rows.length - 1 &&
-                      row.priceOpen < rows[idx + 1].priceClose
+                      idx < data.length - 1 &&
+                      row.priceOpen < data[idx + 1].priceClose
                     "
                     :class="[
                       ,
@@ -116,8 +116,8 @@
 
                   <td
                     v-if="
-                      idx < rows.length - 1 &&
-                      row.priceHigh == rows[idx + 1].priceClose
+                      idx < data.length - 1 &&
+                      row.priceHigh == data[idx + 1].priceClose
                     "
                     :class="[
                       ,
@@ -128,8 +128,8 @@
                   </td>
                   <td
                     v-else-if="
-                      idx < rows.length - 1 &&
-                      row.priceHigh > rows[idx + 1].priceClose
+                      idx < data.length - 1 &&
+                      row.priceHigh > data[idx + 1].priceClose
                     "
                     :class="[
                       ,
@@ -140,8 +140,8 @@
                   </td>
                   <td
                     v-else-if="
-                      idx < rows.length - 1 &&
-                      row.priceHigh < rows[idx + 1].priceClose
+                      idx < data.length - 1 &&
+                      row.priceHigh < data[idx + 1].priceClose
                     "
                     :class="[
                       ,
@@ -162,8 +162,8 @@
 
                   <td
                     v-if="
-                      idx < rows.length - 1 &&
-                      row.priceLow == rows[idx + 1].priceClose
+                      idx < data.length - 1 &&
+                      row.priceLow == data[idx + 1].priceClose
                     "
                     :class="[
                       ,
@@ -174,8 +174,8 @@
                   </td>
                   <td
                     v-else-if="
-                      idx < rows.length - 1 &&
-                      row.priceLow > rows[idx + 1].priceClose
+                      idx < data.length - 1 &&
+                      row.priceLow > data[idx + 1].priceClose
                     "
                     :class="[
                       ,
@@ -186,8 +186,8 @@
                   </td>
                   <td
                     v-else-if="
-                      idx < rows.length - 1 &&
-                      row.priceLow < rows[idx + 1].priceClose
+                      idx < data.length - 1 &&
+                      row.priceLow < data[idx + 1].priceClose
                     "
                     :class="[
                       ,
@@ -208,8 +208,8 @@
 
                   <td
                     v-if="
-                      idx < rows.length - 1 &&
-                      row.priceClose == rows[idx + 1].priceClose
+                      idx < data.length - 1 &&
+                      row.priceClose == data[idx + 1].priceClose
                     "
                     :class="[
                       ,
@@ -220,8 +220,8 @@
                   </td>
                   <td
                     v-else-if="
-                      idx < rows.length - 1 &&
-                      row.priceClose > rows[idx + 1].priceClose
+                      idx < data.length - 1 &&
+                      row.priceClose > data[idx + 1].priceClose
                     "
                     :class="[
                       ,
@@ -232,8 +232,8 @@
                   </td>
                   <td
                     v-else-if="
-                      idx < rows.length - 1 &&
-                      row.priceClose < rows[idx + 1].priceClose
+                      idx < data.length - 1 &&
+                      row.priceClose < data[idx + 1].priceClose
                     "
                     :class="[
                       ,
@@ -254,8 +254,8 @@
 
                   <td
                     v-if="
-                      idx < rows.length - 1 &&
-                      row.priceAverage == rows[idx + 1].priceAverage
+                      idx < data.length - 1 &&
+                      row.priceAverage == data[idx + 1].priceAverage
                     "
                     :class="[
                       ,
@@ -266,8 +266,8 @@
                   </td>
                   <td
                     v-else-if="
-                      idx < rows.length - 1 &&
-                      row.priceAverage > rows[idx + 1].priceAverage
+                      idx < data.length - 1 &&
+                      row.priceAverage > data[idx + 1].priceAverage
                     "
                     :class="[
                       ,
@@ -278,8 +278,8 @@
                   </td>
                   <td
                     v-else-if="
-                      idx < rows.length - 1 &&
-                      row.priceAverage < rows[idx + 1].priceAverage
+                      idx < data.length - 1 &&
+                      row.priceAverage < data[idx + 1].priceAverage
                     "
                     :class="[
                       ,
@@ -304,7 +304,7 @@
                       'whitespace-nowrap py-3 text-sm  text-gray-900 sm:pl-6 lg:pl-8',
                     ]"
                   >
-                    {{ row.totalVolume }}
+                    {{ $filters.formatNumber(row.totalVolume) }}
                   </td>
                   <td
                     :class="[
@@ -312,14 +312,14 @@
                       'whitespace-nowrap py-3 text-sm  text-gray-900 sm:pl-6 lg:pl-8',
                     ]"
                   >
-                    {{ (row.totalVolume * row.priceAverage).toFixed(0) }}
+                    {{ $filters.formatNumber((row.totalVolume * row.priceAverage).toFixed(0)) }}
                   </td>
                 </tr>
               </tbody>
 
               <tbody v-if="type == 'GD'" class="bg-white">
                 <tr
-                  v-for="(row, idx) in rows"
+                  v-for="(row, idx) in data"
                   :key="idx"
                   :class="[idx % 2 == 0 ? 'bg-gray-100' : '']"
                 >
@@ -449,7 +449,7 @@
 
               <tbody v-if="type == 'CC'" class="bg-white">
                 <tr
-                  v-for="(row, idx) in rows"
+                  v-for="(row, idx) in data"
                   :key="idx"
                   :class="[idx % 2 == 0 ? 'bg-gray-100' : '']"
                 >
@@ -520,109 +520,32 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
-import axios from 'axios'
-import { useRoute } from 'vue-router'
+
+import { formatDate, formatNumber, formatCurrency } from "../../../../utils/formatters"
 
 export default {
   name: 'Table',
-  props: ['type'],
+  props: {
+    headers:{
+      require:true,
+      type: Array
+    },
+    data: {
+      require: true,
+      type: Array
+    },
+    type: {
+      require: true,
+      type: String
+    }
+  },
   setup(props, _) {
-    const tableType = props.type
-    const headers = ref([])
-    const rows = ref({})
-    const route = useRoute()
-    const symbol = route.params.symbol
-    const current_date = ref(new Date().toISOString().split('.')[0])
-    const offset = ref(0)
-
-    if (tableType == 'GQK') {
-      headers.value = [
-        'NGÀY',
-        'THAY ĐỔI',
-        '%',
-        'MỞ',
-        'CAO',
-        'THẤP',
-        'ĐÓNG',
-        'TB',
-        'TỔNG KL',
-        'TỔNG GT',
-      ]
-    }
-
-    if (tableType == 'GD') {
-      headers.value = [
-        'NGÀY',
-        'ROOM NN',
-        'MUA',
-        'BÁN',
-        'MUA-BÁN',
-        'MUA',
-        'BÁN',
-        'MUA-BÁN',
-      ]
-    }
-
-    if (tableType == 'CC') {
-      headers.value = [
-        'NGÀY',
-        'SL ĐẶT MUA',
-        'KL ĐẶT MUA',
-        'SL ĐẶT BÁN',
-        'KL ĐẶT BÁN',
-        'TỔNG KL',
-        'TỔNG GT',
-      ]
-    }
-
-    const fetchData = async () => {
-      rows.value = await (
-        await axios.get(
-          `/historical-quotes/${symbol}/?start_date=2019-03-11T04%3A54%3A28&end_date=${encodeURIComponent(
-            current_date.value,
-          )}&offset=${offset.value}&limit=20`,
-        )
-      ).data
-    }
-    onMounted(() => {
-      fetchData()
-    })
-
-    function loadmore() {
-      // offset.value += 20;
-      axios
-        .get(
-          `/historical-quotes/${symbol}/?start_date=2019-03-11T04%3A54%3A28&end_date=${encodeURIComponent(
-            current_date.value,
-          )}&offset=${offset.value}&limit=20`,
-        )
-        .then((res) => {
-          let addedItems = res.data
-          for (const item of addedItems) {
-            rows.value.push(item)
-          }
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
-
-    function infinityScroll(e) {
-      let childCounts = e.srcElement.childElementCount
-      if (
-        e.srcElement.scrollTop >
-        childCounts * 100 - e.srcElement.clientHeight
-      ) {
-        loadmore()
-      }
-    }
-    return {
-      headers,
-      rows,
-      tableType,
-      infinityScroll,
-    }
+    // const headers = ref([props.headers])
+    // const data = ref(props.data)
+    // return {
+    //   headers,
+    //   data,
+    // }
   },
 }
 </script>

@@ -2,10 +2,10 @@
   <div class="w-full sm:px-0">
     <TabGroup>
       <div class="flex justify-between w-full items-center px-2">
-        <div class="w-1/2 p-2">
+        <div class="w-1/2 p-2" >
           <TabList class="flex rounded-xl">
             <Tab
-              v-for="(category, idx) in categories"
+              v-for="(category, idx) in tabs"
               :key="idx"
               v-slot="{ selected }"
               as="template"
@@ -18,9 +18,7 @@
                     ? 'bg-[#137cbd] text-white shadow'
                     : 'hover:bg-white/[0.12]',
                 ]"
-              >
-                {{ category.name }}
-              </button>
+              >{{ category.name }}</button>
             </Tab>
           </TabList>
         </div>
@@ -31,11 +29,11 @@
 
       <TabPanels class="mt-2">
         <TabPanel
-          v-for="(post, idx) in categories"
+          v-for="(tab, idx) in tabs"
           :key="idx"
           :class="['bg-white rounded-xl p-3', 'focus:outline-none']"
         >
-          <TableData :type="post.type" />
+          <TableData :headers="tab.headers" :data="rows" :type="tab.type" @scroll="infinityScroll" />
         </TabPanel>
       </TabPanels>
     </TabGroup>
@@ -43,9 +41,11 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import TableData from './TableData.vue'
+import { useRoute } from 'vue-router'
+import axios from 'axios'
 
 export default {
   components: {
@@ -57,26 +57,110 @@ export default {
     TableData,
   },
   setup() {
-    const categories = ref([
+    const tabs = ref([
       {
         id: 1,
         type: 'GQK',
         name: 'Giá quá khứ',
+        headers: [
+          'NGÀY',
+          'THAY ĐỔI',
+          '%',
+          'MỞ',
+          'CAO',
+          'THẤP',
+          'ĐÓNG',
+          'TB',
+          'TỔNG KL',
+          'TỔNG GT',
+        ]
       },
       {
         id: 2,
         type: 'GD',
         name: 'GD NĐTNN',
+        headers: [
+          'NGÀY',
+          'ROOM NN',
+          'MUA',
+          'BÁN',
+          'MUA-BÁN',
+          'MUA',
+          'BÁN',
+          'MUA-BÁN',
+        ]
       },
       {
         id: 3,
         type: 'CC',
         name: 'Cung cầu',
+        headers: [
+          'NGÀY',
+          'SL ĐẶT MUA',
+          'KL ĐẶT MUA',
+          'SL ĐẶT BÁN',
+          'KL ĐẶT BÁN',
+          'TỔNG KL',
+          'TỔNG GT',
+        ]
       },
     ])
 
+    const rows = ref([])
+    const route = useRoute()
+    const symbol = route.params.symbol
+    const current_date = ref(new Date().toISOString().split('.')[0])
+    const offset = ref(0)
+    const lock = ref(false)
+
+      const fetchData = async () => {
+      rows.value = await (
+        await axios.get(
+          `/historical-quotes/${symbol}/?start_date=2019-03-11T04%3A54%3A28&end_date=${encodeURIComponent(
+            current_date.value,
+          )}&offset=${offset.value}&limit=20`,
+        )
+      ).data
+    }
+    onMounted(() => {
+      fetchData()
+    })
+
+    function loadmore(e){
+      axios
+        .get(
+          `/historical-quotes/${symbol}/?start_date=2019-03-11T04%3A54%3A28&end_date=${encodeURIComponent(
+            current_date.value,
+          )}&offset=${offset.value}&limit=20`,
+        )
+        .then((res) => {
+          let addedItems = res.data
+          for (const item of addedItems) {
+            rows.value.push(item)
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+
+    function infinityScroll(e){
+      let scrollDelta = 400
+      if(e.srcElement.scrollTop >= scrollDelta && lock.value === false){
+        lock.value = true
+        loadmore()
+        setTimeout(()=>{
+          lock.value = false
+        },300)
+      }
+      
+    }
+
     return {
-      categories,
+      tabs,
+      rows,
+      infinityScroll,
+      lock
     }
   },
 }
