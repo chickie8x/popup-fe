@@ -1,7 +1,7 @@
 <template>
   <div
-    class="w-full bg-gray-100 divide-y flex flex-col overflow-auto"
-    @scroll="infinityScroll;"
+    class="w-full bg-gray-100 divide-y flex flex-col overflow-auto relative scroll-smooth"
+    @scroll="infinityScroll"
   >
     <div v-for="(item, index) in newsItems" :key="index" class="flex w-full">
       <div
@@ -34,15 +34,20 @@
               {{ new Date(item.date).toLocaleTimeString() }}
             </p>
             <div class="flex items-center space-x-2 text-sm text-gray-400">
-              <Likes fill="#a7b6c2" />
+              <Likes :fill="iconColor" />
               <span>{{ item.totalLikes }}</span>
-              <Replies fill="#a7b6c2" />
+              <Replies :fill="iconColor" />
               <span>{{ item.totalReplies }}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <Backtotop
+      class="fixed top-[660px] left-1/2 bg-gray-500 bg-opacity-50"
+      :fill="gray"
+      @click="backToTop"
+    />
   </div>
 </template>
 
@@ -53,12 +58,14 @@ import { useRoute, useRouter } from 'vue-router'
 import resolveImgUrl from './utils'
 import Likes from '../../../svg/likes.vue'
 import Replies from '../../../svg/replies.vue'
+import Backtotop from '../../../svg/backtotop.vue'
 
 export default {
   name: 'News',
   components: {
     Replies,
     Likes,
+    Backtotop,
   },
   setup() {
     const route = useRoute()
@@ -67,7 +74,8 @@ export default {
     const offset = ref(0)
     const limit = ref(20)
     const newsItems = ref([])
-    // const iconColor = ref('')
+    const iconColor = ref('#a7b6c2')
+    const lock = ref(false)
 
     axios
       .get(
@@ -76,7 +84,6 @@ export default {
       .then((res) => {
         newsItems.value = res.data
         resolveImgUrl(newsItems.value)
-        lastItemsCount.value = newsItems.value.length
       })
       .catch((err) => {
         console.log(err)
@@ -108,10 +115,19 @@ export default {
       let childCounts = e.srcElement.childElementCount
       if (
         e.srcElement.scrollTop >
-        childCounts * 100 - e.srcElement.clientHeight
+          (childCounts - 1) * 100 - e.srcElement.clientHeight &&
+        lock.value == false
       ) {
+        lock.value = true
         loadmore()
+        setTimeout(() => {
+          lock.value = false
+        }, 500)
       }
+    }
+
+    function backToTop(e) {
+      e.target.parentElement.scrollTop = 0
     }
 
     return {
@@ -119,6 +135,8 @@ export default {
       loadmore,
       routeToPost,
       infinityScroll,
+      iconColor,
+      backToTop,
     }
   },
 }
