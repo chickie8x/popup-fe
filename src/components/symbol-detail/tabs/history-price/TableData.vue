@@ -1,5 +1,5 @@
 <template>
-  <div class="max-h-[430px] overflow-y-auto" @scroll="infinityScroll;">
+  <div class="max-h-[430px] overflow-y-auto" ref="table">
     <div class="flex flex-col">
       <div class="-my-2">
         <div class="inline-block min-w-full py-2 align-middle">
@@ -521,7 +521,7 @@
 
 <script>
 
-import { formatDate, formatNumber, formatCurrency } from "../../../../utils/formatters"
+import { computed, ref } from 'vue'
 
 export default {
   name: 'Table',
@@ -537,15 +537,12 @@ export default {
     type: {
       require: true,
       type: String
+    },
+    scrollPos: {
+      require: true,
+      type: Number
     }
   },
-  setup(props, _) {
-    // const headers = ref([props.headers])
-    // const data = ref(props.data)
-    // return {
-    //   headers,
-    //   data,
-    // }
-  },
+
 }
 </script>

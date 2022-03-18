@@ -33,7 +33,7 @@
           :key="idx"
           :class="['bg-white rounded-xl p-3', 'focus:outline-none']"
         >
-          <TableData :headers="tab.headers" :data="rows" :type="tab.type" @scroll="infinityScroll" />
+          <TableData :headers="tab.headers" :data="rows" :type="tab.type" :scrollPos="scrollPos" @scroll="infinityScroll" />
         </TabPanel>
       </TabPanels>
     </TabGroup>
@@ -112,6 +112,8 @@ export default {
     const current_date = ref(new Date().toISOString().split('.')[0])
     const offset = ref(0)
     const lock = ref(false)
+    const scrollDelta = ref(490)
+    const scrollPos = ref(0)
 
       const fetchData = async () => {
       rows.value = await (
@@ -145,10 +147,11 @@ export default {
     }
 
     function infinityScroll(e){
-      let scrollDelta = 400
-      if(e.srcElement.scrollTop >= scrollDelta && lock.value === false){
+      scrollPos.value = e.srcElement.scrollTop
+      if(e.srcElement.scrollTop >= scrollDelta.value && lock.value === false){
         lock.value = true
         loadmore()
+        scrollDelta.value += 200
         setTimeout(()=>{
           lock.value = false
         },300)
@@ -156,11 +159,13 @@ export default {
       
     }
 
+
     return {
       tabs,
       rows,
       infinityScroll,
-      lock
+      lock,
+      scrollPos
     }
   },
 }

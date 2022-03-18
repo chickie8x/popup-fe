@@ -115,7 +115,7 @@ export default {
       let childCounts = e.srcElement.childElementCount
       if (
         e.srcElement.scrollTop >
-          (childCounts - 1) * 100 - e.srcElement.clientHeight &&
+          (childCounts - 1) * 50 - e.srcElement.clientHeight &&
         lock.value == false
       ) {
         lock.value = true
