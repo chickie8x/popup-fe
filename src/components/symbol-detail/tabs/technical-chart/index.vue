@@ -28,7 +28,7 @@ export default {
     const fetchProfile = async () => {
       profile.value = await (await axios.get(`/profile/${symbol}`)).data
       options.value = {
-        symbol: `${profile.value.exchange}:${profile.value.symbol}`
+        symbol: `${profile.value.exchange}:${profile.value.symbol}`,
       }
     }
     onMounted(() => {

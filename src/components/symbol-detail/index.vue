@@ -7,7 +7,7 @@
           as="h3"
           class="text-lg leading-6 font-medium text-gray-900 flex text-center my-auto ml-4"
         >
-          <img :src="logo" class="w-20">
+          <img :src="logo" class="w-20" />
         </DialogTitle>
       </div>
 
@@ -44,7 +44,7 @@ import { DialogTitle } from '@headlessui/vue'
 import CTabs from '../kits/tabs/index.vue'
 import NavRouter from '../kits/nav-router/index.vue'
 import tabs from './tabs.js'
-import logo from '../../images/F247.png';
+import logo from '../../images/F247.png'
 
 export default {
   name: 'SymbolDetail',
