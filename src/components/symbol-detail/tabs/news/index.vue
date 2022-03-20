@@ -6,7 +6,7 @@
     <div v-for="(item, index) in newsItems" :key="index" class="flex w-full">
       <div
         class="w-full flex pr-5 hover:bg-gray-200 cursor-pointer"
-        @click="routeToPost(item.postID)"
+        @click="router.push({ path: `/news/${item.postID}/` })"
       >
         <div class="news-thumbnail w-[100px] h-[100px]">
           <img
@@ -53,7 +53,7 @@
 
 <script>
 import axios from 'axios'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import resolveImgUrl from './utils'
 import Likes from '../../../svg/likes.vue'
@@ -72,43 +72,27 @@ export default {
     const router = useRouter()
     const symbol = ref(route.params.symbol)
     const offset = ref(0)
-    const limit = ref(20)
     const newsItems = ref([])
     const iconColor = ref('#a7b6c2')
     const lock = ref(false)
 
-    axios
-      .get(
-        `/news/?code=${symbol.value}&offset=${offset.value}&limit=${limit.value}`,
-      )
-      .then((res) => {
-        newsItems.value = res.data
-        resolveImgUrl(newsItems.value)
-      })
-      .catch((err) => {
+    const fetch = async () => {
+      try {
+        const url = `/news/?code=${symbol.value}&offset=${offset.value}&limit=20`
+        const items = (await axios.get(url)).data
+        newsItems.value = newsItems.value.concat(items.map(resolveImgUrl))
+      } catch (err) {
         console.log(err)
-      })
-
-    function loadmore() {
-      // offset.value += 20;
-      axios
-        .get(
-          `/news/?code=${symbol.value}&offset=${offset.value}&limit=${limit.value}`,
-        )
-        .then((res) => {
-          let addedItems = res.data
-          resolveImgUrl(addedItems)
-          for (const item of addedItems) {
-            newsItems.value.push(item)
-          }
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+      }
     }
 
-    const routeToPost = (routePost) => {
-      router.push({ path: `/news/${routePost}/` })
+    onMounted(() => {
+      fetch()
+    })
+
+    const loadMore = () => {
+      offset.value += 20
+      fetch()
     }
 
     function infinityScroll(e) {
@@ -116,13 +100,13 @@ export default {
       if (
         e.srcElement.scrollTop >
           (childCounts - 1) * 50 - e.srcElement.clientHeight &&
-        lock.value == false
+        lock.value === false
       ) {
         lock.value = true
-        loadmore()
+        loadMore()
         setTimeout(() => {
           lock.value = false
-        }, 500)
+        }, 100)
       }
     }
 
@@ -131,9 +115,8 @@ export default {
     }
 
     return {
+      router,
       newsItems,
-      loadmore,
-      routeToPost,
       infinityScroll,
       iconColor,
       backToTop,
