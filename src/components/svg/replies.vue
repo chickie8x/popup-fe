@@ -9,8 +9,11 @@
 </template>
 
 <script>
+import mixin from './_mixin'
+
 export default {
   name: 'Replies',
-  props: ['fill'],
+
+  mixins: [mixin],
 }
 </script>

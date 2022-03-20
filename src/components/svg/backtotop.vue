@@ -15,8 +15,11 @@
   </svg>
 </template>
 <script>
+import mixin from './_mixin'
+
 export default {
   name: 'BackToTop',
-  props: ['fill'],
+
+  mixins: [mixin],
 }
 </script>

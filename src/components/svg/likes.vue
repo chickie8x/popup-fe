@@ -14,8 +14,11 @@
   </svg>
 </template>
 <script>
+import mixin from './_mixin'
+
 export default {
   name: 'Likes',
-  props: ['fill'],
+
+  mixins: [mixin],
 }
 </script>

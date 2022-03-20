@@ -10,8 +10,11 @@
 </template>
 
 <script>
+import mixin from './_mixin'
+
 export default {
   name: 'Share',
-  props: ['fill'],
+
+  mixins: [mixin],
 }
 </script>

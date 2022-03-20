@@ -539,7 +539,7 @@ export default {
       fetchData()
     })
 
-    function loadmore(e) {
+    function loadmore() {
       axios
         .get(
           `/historical-quotes/${symbol}/?start_date=2019-03-11T04%3A54%3A28&end_date=${encodeURIComponent(

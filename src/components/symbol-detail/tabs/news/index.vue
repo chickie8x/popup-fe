@@ -44,8 +44,8 @@
       </div>
     </div>
     <Backtotop
-      class="fixed top-[660px] left-1/2 bg-gray-500 bg-opacity-50"
-      :fill="gray"
+      class="fixed top-[660px] left-1/2 bg-gray-500 bg-opacity-50 cursor-pointer"
+      :fill="'gray'"
       @click="backToTop"
     />
   </div>
