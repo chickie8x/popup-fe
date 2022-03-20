@@ -3,7 +3,7 @@ export default {
     fill: {
       require: true,
       type: String,
-      default: 'gray',
+      default: '#a7b6c2',
     },
   },
 }

@@ -3,14 +3,14 @@
     class="w-full bg-gray-100 divide-y flex flex-col overflow-auto relative scroll-smooth"
     @scroll="infinityScroll"
   >
-    <div v-for="(item, index) in newsItems" :key="index" class="flex w-full">
+    <div v-for="(item, index) in items" :key="index" class="flex w-full">
       <div
         class="w-full flex pr-5 hover:bg-gray-200 cursor-pointer"
         @click="router.push({ path: `/news/${item.postID}/` })"
       >
         <div class="news-thumbnail w-[100px] h-[100px]">
           <img
-            class="object-cover w-[100px] h-[100px] p-2"
+            class="object-cover w-[100px] h-[fil100px] p-2"
             :src="item.image_map[0].image_path"
             alt
           />
@@ -21,11 +21,12 @@
             <span
               v-if="item.taggedSymbols[0].percentChange.toFixed(2) >= 0"
               class="text-green-600 text-sm"
-              >+{{ item.taggedSymbols[0].percentChange.toFixed(2) }}%</span
             >
-            <span v-else class="text-red-600 text-sm"
-              >{{ item.taggedSymbols[0].percentChange.toFixed(2) }}%</span
-            >
+              +{{ item.taggedSymbols[0].percentChange.toFixed(2) }}%
+            </span>
+            <span v-else class="text-red-600 text-sm">
+              {{ item.taggedSymbols[0].percentChange.toFixed(2) }}%
+            </span>
           </p>
           <p class="text-base font-semibold mb-2">{{ item.title }}</p>
           <div class="flex justify-between">
@@ -34,9 +35,9 @@
               {{ new Date(item.date).toLocaleTimeString() }}
             </p>
             <div class="flex items-center space-x-2 text-sm text-gray-400">
-              <Likes :fill="iconColor" />
+              <Likes  />
               <span>{{ item.totalLikes }}</span>
-              <Replies :fill="iconColor" />
+              <Replies />
               <span>{{ item.totalReplies }}</span>
             </div>
           </div>
@@ -45,7 +46,6 @@
     </div>
     <Backtotop
       class="fixed top-[660px] left-1/2 bg-gray-500 bg-opacity-50 cursor-pointer"
-      :fill="'gray'"
       @click="backToTop"
     />
   </div>
@@ -72,15 +72,14 @@ export default {
     const router = useRouter()
     const symbol = ref(route.params.symbol)
     const offset = ref(0)
-    const newsItems = ref([])
-    const iconColor = ref('#a7b6c2')
+    const items = ref([])
     const lock = ref(false)
 
     const fetch = async () => {
       try {
         const url = `/news/?code=${symbol.value}&offset=${offset.value}&limit=20`
-        const items = (await axios.get(url)).data
-        newsItems.value = newsItems.value.concat(items.map(resolveImgUrl))
+        const _items = (await axios.get(url)).data
+        items.value = items.value.concat(_items.map(resolveImgUrl))
       } catch (err) {
         console.log(err)
       }
@@ -115,11 +114,10 @@ export default {
     }
 
     return {
+      items,
       router,
-      newsItems,
-      infinityScroll,
-      iconColor,
       backToTop,
+      infinityScroll,
     }
   },
 }
