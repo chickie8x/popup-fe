@@ -106,16 +106,20 @@ export default {
     const route = useRoute()
     const getOfficer = ref(null)
     const profile = ref(null)
-    let memberId = route.params.id
+    const memberId = ref(null)
     const hostImage = 'http://112.213.94.77:1995'
 
     // methods
     const fetchProfile = async () => {
-      getOfficer.value = await (await axios.get(`/individual/${memberId}`)).data
+      memberId.value = route.params.id
+      getOfficer.value = await (
+        await axios.get(`/individual/${memberId.value}`)
+      ).data
       profile.value = getOfficer.value.profile
       if (!profile.value.photoURL) {
         profile.value.photoURL =
-          hostImage + `/static/individuals/${memberId}.png?width=200&height=200`
+          hostImage +
+          `/static/individuals/${memberId.value}.png?width=200&height=200`
       }
       const dateToken = profile.value.dateOfBirth.split('/')
       const dob = new Date(dateToken[2], dateToken[1], dateToken[0])
@@ -138,7 +142,12 @@ export default {
       fetchProfile()
     })
 
-    watch(() => route.params)
+    watch(
+      () => route.params.id,
+      () => {
+        fetchProfile()
+      },
+    )
 
     const tab = ref(tabs[0])
     return {

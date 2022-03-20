@@ -108,7 +108,7 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue'
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 export default {
@@ -122,31 +122,24 @@ export default {
   },
 
   setup(props) {
-    const jobs = ref([])
-    const assets = ref([])
-    const relations = ref([])
-    const bio = ref(null)
-    const router = useRouter()
-    // const memberId = route.params.id
     const hostImage = 'http://112.213.94.77:1995'
-
-    const fetchOfficer = () => {
-      bio.value = props.getOfficer.profile.bio
-      relations.value = props.getOfficer.relations
-      jobs.value = props.getOfficer.jobs
-      assets.value = props.getOfficer.assets
-      for (const person of relations.value) {
+    const jobs = computed(() => props.getOfficer.jobs)
+    const assets = computed(() => props.getOfficer.assets)
+    const relations = computed(() => {
+      const tmp = props.getOfficer.relations
+      for (const person of tmp) {
+        console.log(person)
         person.image =
           hostImage +
           `/static/individuals/` +
           person.relatedIndividual.individualID +
           '.png?width=65&height=65'
       }
-    }
-
-    onMounted(() => {
-      fetchOfficer()
+      return tmp
     })
+    const bio = computed(() => props.getOfficer.profile.bio)
+    const router = useRouter()
+    // const memberId = route.params.id
 
     const routeToMember = (routeMember) => {
       router.push({ path: `/entry/members/${routeMember}` })
