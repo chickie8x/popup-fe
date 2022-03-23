@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-const router = createRouter({
-  history: createWebHistory(),
+export default createRouter({
   routes: [
     {
+      // only for test
       path: '/',
       component: () => import('../views/index.vue'),
     },
@@ -13,20 +13,70 @@ const router = createRouter({
       children: [
         {
           path: 'symbols/:symbol',
-          component: () => import('../components/symbol-detail/index.vue'),
+          component: () => import('../views/entry/symbols/index.vue'),
+          children: [
+            {
+              path: '',
+              name: 'symbols-overall',
+              component: () =>
+                import('../views/entry/symbols/tabs/overall/index.vue'),
+            },
+            {
+              path: 'news',
+              name: 'symbols-news',
+              component: () =>
+                import('../views/entry/symbols/tabs/news/index.vue'),
+            },
+            {
+              path: 'shareholder',
+              name: 'symbols-shareholder',
+              component: () =>
+                import('../views/entry/symbols/tabs/shareholder/index.vue'),
+            },
+            {
+              path: 'technical-chart',
+              name: 'symbols-technical-chart',
+              component: () =>
+                import('../views/entry/symbols/tabs/technical-chart/index.vue'),
+            },
+            {
+              path: 'company-detail',
+              name: 'symbols-company-detail',
+              component: () =>
+                import('../views/entry/symbols/tabs/company-detail/index.vue'),
+            },
+            {
+              path: 'finance',
+              name: 'symbols-finance',
+              component: () =>
+                import('../views/entry/symbols/tabs/finance/index.vue'),
+            },
+            {
+              path: 'history-price',
+              name: 'symbols-history-price',
+              component: () =>
+                import('../views/entry/symbols/tabs/history-price/index.vue'),
+            },
+            {
+              path: 'dividend',
+              name: 'symbols-dividend',
+              component: () =>
+                import('../views/entry/symbols/tabs/dividend/index.vue'),
+            },
+          ],
         },
         {
           path: 'members/:id',
-          component: () => import('../components/member-detail/index.vue'),
+          name: 'members-detail',
+          component: () => import('../views/entry/members/index.vue'),
+        },
+        {
+          path: 'news/:id',
+          name: 'news-detail',
+          component: () => import('../views/entry/news/index.vue'),
         },
       ],
     },
-    {
-      path: '/news/:id',
-      component: () =>
-        import('../components/member-detail/tabs/post/index.vue'),
-    },
   ],
+  history: createWebHistory(),
 })
-
-export default router

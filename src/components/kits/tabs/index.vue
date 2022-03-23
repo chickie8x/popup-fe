@@ -22,6 +22,7 @@
 
 <script>
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'CTabs',
@@ -38,6 +39,7 @@ export default {
   },
 
   setup(props, { emit }) {
+    const router = useRouter()
     const current = computed({
       get: () => {
         return props.modelValue
@@ -48,6 +50,9 @@ export default {
     })
 
     const select = (tab) => {
+      if (tab.to) {
+        router.push(tab.to)
+      }
       current.value = tab
     }
 

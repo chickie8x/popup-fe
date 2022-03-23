@@ -7,6 +7,7 @@ import VueAxios from 'vue-axios'
 import axios from './plugins/axios'
 import filters from './plugins/filters'
 import components from './plugins/components'
+import './plugins/tvDatafeeds'
 
 const app = createApp(App)
 app.use(VueAxios, axios)
