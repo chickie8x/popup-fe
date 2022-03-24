@@ -10,7 +10,7 @@
       >
         <div class="news-thumbnail w-[100px] h-[100px]">
           <img
-            class="object-cover w-[100px] h-[fil100px] p-2"
+            class="object-cover w-[100px] h-[100px] p-2"
             :src="item.image_map[0].image_path"
             alt
           />
