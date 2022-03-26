@@ -49,7 +49,7 @@
 
       <div class="mt-4">
         <router-view
-          class="h-[512px] overflow-y-scroll border-2 border-solid rounded"
+          class="h-[512px] overflow-y-auto border-2 border-solid rounded"
         />
       </div>
     </div>

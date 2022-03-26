@@ -1,5 +1,7 @@
 <template>
-  <div id="trading-view" />
+  <div class="overflow-auto">
+    <div id="trading-view" />
+  </div>
 </template>
 
 <script>
@@ -19,8 +21,8 @@ export default {
       ).data
       const { symbol } = data
       const options = {
-        width: 868,
-        height: 500,
+        width: 860,
+        height: 490,
         symbol: symbol,
         locale: 'vi',
         container_id: 'trading-view',

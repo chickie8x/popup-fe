@@ -16,7 +16,7 @@
           <div class="flex-1 flex flex-col mt-3">
             <img
               class="w-36 h-36 flex-shrink-0 rounded-full mx-auto"
-              :src="profile.photoURL"
+              :src="getAvatar()"
               alt=""
             />
             <h3 class="mt-4 text-gray-900 text-lg font-bold">
@@ -42,13 +42,13 @@
             </div>
             <div class="text-gray-900 text-base">
               Tuổi:
-              <span class="font-bold">{{ profile.dateOfBirth }}</span>
+              <span class="font-bold">{{ getAge(profile) }}</span>
             </div>
             <div class="text-gray-900 text-base">
               Học vấn:
-              <span class="font-bold">{{
-                educationMap[profile.education] || '-'
-              }}</span>
+              <span class="font-bold">
+                {{ educationMap[profile.education] || '-' }}
+              </span>
             </div>
             <div
               class="mt-3 px-3 py-3 text-gray-900 text-2xl bg-blue-100 rounded-lg justify-center"
@@ -106,18 +106,27 @@ export default {
     const fetchProfile = async (_id) => {
       const data = (await axios.get(`/individual/${_id}`)).data
       profile.value = data.profile
-      if (!profile.value.photoURL) {
-        profile.value.photoURL = `http://112.213.94.77:1995/static/individuals/${_id}.png?width=200&height=200`
-      }
-
-      const dayOfBirth = new Date(profile.value.dateOfBirth)
-      profile.value.dateOfBirth =
-        new Date().getFullYear() - dayOfBirth.getFullYear()
       const { assets } = data
       totalAsset.value = assets.reduce((acc, curr) => {
         acc += curr.value
         return acc
       }, 0)
+    }
+
+    const getAvatar = () => {
+      return `${
+        import.meta.env.VITE_IMAGE_URL
+      }/individuals/${memberId}.png?width=200&height=200`
+    }
+
+    const getAge = (_profile) => {
+      const dateOfBirth = _profile.dateOfBirth
+      const [day, mon, year] = dateOfBirth
+        .split('/')
+        .map((item) => parseInt(item))
+      const _dateOfBirth = new Date(year, mon, day)
+      const now = new Date()
+      return now.getFullYear() - _dateOfBirth.getFullYear()
     }
 
     const educationMap = {
@@ -139,6 +148,8 @@ export default {
     return {
       tab,
       tabs,
+      getAge,
+      getAvatar,
       profile,
       totalAsset,
       educationMap,
