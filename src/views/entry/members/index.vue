@@ -121,6 +121,9 @@ export default {
 
     const getAge = (_profile) => {
       const dateOfBirth = _profile.dateOfBirth
+      if (!dateOfBirth) {
+        return '-'
+      }
       const [day, mon, year] = dateOfBirth
         .split('/')
         .map((item) => parseInt(item))
