@@ -69,7 +69,7 @@
     </div>
 
     <div
-      v-show="relations"
+      v-show="relations.length"
       class="inset-0 py-3 px-2 mx-4 mb-4 bg-gray-100 rounded-lg"
     >
       <div class="font-bold">NGUỜI THÂN</div>
@@ -160,5 +160,6 @@ export default {
 <style scoped>
 .profile-bio ::v-deep li {
   list-style-type: disc;
+  margin-left: 35px;
 }
 </style>
