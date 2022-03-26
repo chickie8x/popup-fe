@@ -1,10 +1,10 @@
 <template>
-  <div v-if="post" class="flex flex-col overflow-scroll h-full">
+  <div v-if="post" class="flex flex-col overflow-y-scroll h-full">
     <div class="sm:flex sm:items-start sticky top-0">
       <div
         class="text-center sm:text-left w-full bg-white rounded-t-md border-b-gray-100"
       >
-        <div class="flex px-5 py-2">
+        <div class="flex mb-2">
           <NavRouter />
           <DialogTitle
             as="h3"
@@ -16,7 +16,7 @@
       </div>
     </div>
 
-    <div class="w-full h-full bg-gray-100 p-5">
+    <div class="w-full h-full p-5">
       <div class="text-3xl font-semibold py-3">{{ post.title }}</div>
       <div class="flex items-center justify-between pb-3">
         <div class="flex text-gray-500 text-sm divide-x space-x-2">

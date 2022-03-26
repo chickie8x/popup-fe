@@ -4978,6 +4978,11 @@ vite@^2.8.0:
   optionalDependencies:
     fsevents "~2.3.2"
 
+vue-2-3@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/vue-2-3/-/vue-2-3-1.0.0.tgz#44e7476c0485b86b4eb87abe987a1a97e6f6fbe5"
+  integrity sha512-xO2tSTpUfSKrP8ZCzciX3ZFX33rf0R+NtQnciSXLyCFR2zUofWpjiSK9Hf2gfEF7OEFVXseZrmH978Lb0TtLZg==
+
 vue-axios@^3.4.1:
   version "3.4.1"
   resolved "https://registry.npmjs.org/vue-axios/-/vue-axios-3.4.1.tgz"
@@ -5000,6 +5005,11 @@ vue-hot-reload-api@^2.3.0:
   version "2.3.4"
   resolved "https://registry.npmjs.org/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz"
   integrity sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog==
+
+vue-infinite-loading@^2.4.5:
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/vue-infinite-loading/-/vue-infinite-loading-2.4.5.tgz#cc20fd40af7f20188006443c99b60470cf1de1b3"
+  integrity sha512-xhq95Mxun060bRnsOoLE2Be6BR7jYwuC89kDe18+GmCLVrRA/dU0jrGb12Xu6NjmKs+iTW0AA6saSEmEW4cR7g==
 
 vue-loader@^17.0.0:
   version "17.0.0"
@@ -5034,6 +5044,11 @@ vue-trading-view@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/vue-trading-view/-/vue-trading-view-1.0.1.tgz"
   integrity sha512-CNTrPt/yvcpu724l36YGlrwczcKEt9hwKyw9cEZ8PRcqR0jwNBWZkk6bJVCgACmXkLqJZjsPUagaYfQHvtsjeQ==
+
+"vue2@npm:vue@^2.6.12":
+  version "2.6.14"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.14.tgz#e51aa5250250d569a3fbad3a8a5a687d6036e235"
+  integrity sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ==
 
 vue@^3.2.25:
   version "3.2.31"

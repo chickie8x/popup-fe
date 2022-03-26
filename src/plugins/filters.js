@@ -1,4 +1,9 @@
-import { formatNumber, formatDate, formatCurrency } from '../utils/formatters'
+import {
+  formatNumber,
+  formatDate,
+  formatCurrency,
+  formatDateAtTime,
+} from '../utils/formatters'
 
 export default {
   install(app) {
@@ -6,6 +11,7 @@ export default {
       formatDate,
       formatNumber,
       formatCurrency,
+      formatDateAtTime,
     }
   },
 }

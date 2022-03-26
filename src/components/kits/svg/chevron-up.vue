@@ -18,7 +18,7 @@
 import mixin from './_mixin'
 
 export default {
-  name: 'BackToTopIcon',
+  name: 'ChevronUp',
 
   mixins: [mixin],
 }

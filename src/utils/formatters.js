@@ -21,3 +21,8 @@ export const formatCurrency = (num) => {
     currency: 'VND',
   }).format(_n)
 }
+
+export const formatDateAtTime = (date) => {
+  const _date = new Date(date)
+  return `${_date.toLocaleDateString()} lúc ${_date.toLocaleTimeString()}`
+}

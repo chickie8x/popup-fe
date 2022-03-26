@@ -5,7 +5,7 @@ import CTabs from '../components/kits/tabs/index.vue'
 
 import LikeIcon from '../components/kits/svg/likes.vue'
 import ReplyIcon from '../components/kits/svg/reply.vue'
-import BacktotopIcon from '../components/kits/svg/backtotop.vue'
+import ChevronUpIcon from '../components/kits/svg/chevron-up.vue'
 import RepostIcon from '../components/kits/svg/repost.vue'
 import ShareIcon from '../components/kits/svg/share.vue'
 
@@ -25,6 +25,6 @@ export default {
     app.component('ShareIcon', ShareIcon)
     app.component('ReplyIcon', ReplyIcon)
     app.component('RepostIcon', RepostIcon)
-    app.component('BacktotopIcon', BacktotopIcon)
+    app.component('ChevronUpIcon', ChevronUpIcon)
   },
 }
