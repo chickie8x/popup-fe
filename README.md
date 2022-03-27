@@ -1,6 +1,7 @@
 ### How to run
 
 ```
+- cp .env.example .env
 - yarn dev (client)
 ```
 
