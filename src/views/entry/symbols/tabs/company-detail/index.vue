@@ -271,7 +271,7 @@ export default {
       axios
         .get(`/profile/${symbol}`)
         .then((res) => {
-          profile.value = res.data
+          profile.value = res
           profile.value.dateOfListing = new Intl.DateTimeFormat('vi', {
             month: '2-digit',
             day: '2-digit',
@@ -310,7 +310,7 @@ export default {
       axios
         .get(`/officers/${symbol}`)
         .then((res) => {
-          officers.value = res.data
+          officers.value = res
           for (const person of officers.value) {
             person.image_path =
               hostImage +
