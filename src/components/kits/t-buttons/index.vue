@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { computed, defineProps, toRefs } from 'vue'
+import { computed, toRefs } from 'vue'
 
 const typeMaps = {
   primary: 'text-white bg-indigo-600 border-indigo-700 hover:bg-indigo-700',

@@ -9,7 +9,8 @@
             current.key === tab.key
               ? 'bg-gray-200 text-gray-900'
               : 'text-gray-500 hover:text-gray-700',
-            'px-3 py-2 font-medium text-sm rounded-md cursor-pointer',
+            size === 'md' ? 'px-3 py-2 text-sm' : 'px-2 py-1.5 text-xs',
+            'font-medium rounded-md cursor-pointer',
           ]"
           @click="select(tab)"
         >
@@ -35,6 +36,10 @@ export default {
     tabs: {
       required: true,
       type: Array,
+    },
+    size: {
+      type: String,
+      default: 'md',
     },
   },
 

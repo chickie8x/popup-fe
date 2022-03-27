@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { computed, defineProps, defineEmits } from 'vue'
+import { computed, defineEmits } from 'vue'
 
 const typeMaps = {
   primary: 'text-white bg-indigo-600 hover:bg-indigo-700',

@@ -16,7 +16,7 @@ export default createRouter({
           component: () => import('../views/entry/symbols/index.vue'),
           children: [
             {
-              path: '/overall',
+              path: 'overall',
               name: 'symbols-overall',
               component: () =>
                 import('../views/entry/symbols/tabs/overall/index.vue'),
