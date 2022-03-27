@@ -16,13 +16,13 @@ export default createRouter({
           component: () => import('../views/entry/symbols/index.vue'),
           children: [
             {
-              path: '',
+              path: '/overall',
               name: 'symbols-overall',
               component: () =>
                 import('../views/entry/symbols/tabs/overall/index.vue'),
             },
             {
-              path: 'news',
+              path: '',
               name: 'symbols-news',
               component: () =>
                 import('../views/entry/symbols/tabs/news/index.vue'),

@@ -104,7 +104,7 @@ export default {
 
     // methods
     const fetchProfile = async (_id) => {
-      const data = (await axios.get(`/individual/${_id}`)).data
+      const data = await axios.get(`/individual/${_id}`)
       profile.value = data.profile
       const { assets } = data
       totalAsset.value = assets.reduce((acc, curr) => {

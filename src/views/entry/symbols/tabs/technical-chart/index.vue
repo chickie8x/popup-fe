@@ -16,9 +16,7 @@ export default {
     // data
     const route = useRoute()
     const initOption = async () => {
-      const data = await (
-        await axios.get(`/profile/${route.params.symbol}`)
-      ).data
+      const data = await axios.get(`/profile/${route.params.symbol}`)
       const { symbol } = data
       const options = {
         width: 860,
@@ -27,7 +25,7 @@ export default {
         locale: 'vi',
         container_id: 'trading-view',
         datafeed: new window.Datafeeds.UDFCompatibleDatafeed(
-          import.meta.env.VITE_TV_DATAFEEDS_URL,
+          `${import.meta.env.VITE_API_URL}/chart`,
         ),
         library_path: '/tv/',
       }

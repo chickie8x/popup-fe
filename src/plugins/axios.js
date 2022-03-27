@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://112.213.94.77:1995'
+axios.defaults.baseURL = import.meta.env.VITE_API_URL
 axios.interceptors.response.use(
   function (response) {
-    return response
+    return response.data
   },
   function (error) {
     return Promise.reject(error)

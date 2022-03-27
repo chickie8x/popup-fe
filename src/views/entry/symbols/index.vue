@@ -73,7 +73,7 @@ export default {
 
     // methods
     const fetchProfile = async () => {
-      profile.value = await (await axios.get(`/profile/${symbol}`)).data
+      profile.value = await axios.get(`/profile/${symbol}`)
     }
     onMounted(() => {
       fetchProfile()

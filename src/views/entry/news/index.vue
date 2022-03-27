@@ -79,7 +79,7 @@ export default {
 
     // Methods
     const fetchPost = async () => {
-      post.value = await (await axios.get(`/news/${postID}/`)).data
+      post.value = await axios.get(`/news/${postID}/`)
     }
 
     // Hooks

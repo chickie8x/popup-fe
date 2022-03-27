@@ -58,7 +58,7 @@ export default {
           limit: 20,
         }
         const url = `/news?${buildQuery(query)}`
-        return (await axios.get(url)).data
+        return await axios.get(url)
       } catch (err) {
         console.log(err)
         return []

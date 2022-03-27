@@ -100,13 +100,11 @@ export default {
     const offset = ref(0)
 
     const fetchData = async () => {
-      events.value = await (
-        await axios.get(
-          `/events/${symbol}/?start_date=2019-03-11T04%3A54%3A28&end_date=${encodeURIComponent(
-            current_date.value,
-          )}&offset=${offset.value}&limit=20`,
-        )
-      ).data
+      events.value = await axios.get(
+        `/events/${symbol}/?start_date=2019-03-11T04%3A54%3A28&end_date=${encodeURIComponent(
+          current_date.value,
+        )}&offset=${offset.value}&limit=20`,
+      )
     }
 
     onMounted(() => {

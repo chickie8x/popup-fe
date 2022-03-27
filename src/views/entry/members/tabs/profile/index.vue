@@ -143,7 +143,7 @@ export default {
     }
 
     onMounted(async () => {
-      const data = (await axios.get(`individual/${memberId}`)).data
+      const data = await axios.get(`individual/${memberId}`)
       prepareData(data)
     })
 

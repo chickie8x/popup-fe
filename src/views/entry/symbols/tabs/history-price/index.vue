@@ -524,13 +524,11 @@ export default {
     const scrollDelta = ref(490)
 
     const fetchData = async () => {
-      rows.value = await (
-        await axios.get(
-          `/historical-quotes/${symbol}/?start_date=2019-03-11T04%3A54%3A28&end_date=${encodeURIComponent(
-            current_date.value,
-          )}&offset=${offset.value}&limit=20`,
-        )
-      ).data
+      rows.value = await axios.get(
+        `/historical-quotes/${symbol}/?start_date=2019-03-11T04%3A54%3A28&end_date=${encodeURIComponent(
+          current_date.value,
+        )}&offset=${offset.value}&limit=20`,
+      )
     }
 
     onMounted(() => {
