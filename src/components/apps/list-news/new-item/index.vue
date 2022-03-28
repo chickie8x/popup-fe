@@ -1,18 +1,18 @@
 <template>
   <div class="flex w-full">
     <div
-      class="w-full flex pr-5 hover:bg-gray-200 cursor-pointer"
+      class="w-full px-2 py-4 flex flex-col hover:bg-gray-200 cursor-pointer  sm:flex-row sm:pr-5 sm:px-0 sm:py-0"
       @click="router.push({ path: `/entry/news/${item.postID}` })"
     >
-      <div class="news-thumbnail w-[100px] h-[100px]">
+      <div class="w-full sm:w-[100px] sm:h-[100px]">
         <img
-          class="object-cover w-[100px] h-[100px] p-2"
+          class="object-cover w-full sm:w-[100px] sm:h-[100px] p-2"
           :src="imageSrc(item)"
           alt
         />
       </div>
-      <div class="general-info ml-2 flex-1">
-        <p class="mb-2">
+      <div class="general-info sm:ml-2 flex-1 w-full">
+        <div v-if='item.taggedSymbols[0]' class="mb-2 ml-0">
           <span class="text-sm mr-1">{{ item.taggedSymbols[0]?.symbol }}</span>
           <span
             v-if="item.taggedSymbols[0]?.percentChange.toFixed(2) >= 0"
@@ -23,8 +23,8 @@
           <span v-else class="text-red-600 text-sm">
             {{ item.taggedSymbols[0]?.percentChange.toFixed(2) }}%
           </span>
-        </p>
-        <p class="text-base font-semibold mb-2">{{ item.title }}</p>
+        </div>
+        <p class="text-left text-base font-semibold mb-2">{{ item.title }}</p>
         <div class="flex justify-between">
           <p class="text-sm text-gray-500">
             {{ $filters.formatDateAtTime(item.date) }}
