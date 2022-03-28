@@ -4,7 +4,7 @@ import NavRouter from '../components/kits/nav-router/index.vue'
 import CTabs from '../components/kits/tabs/index.vue'
 import CTable from '../components/kits/table/index.vue'
 
-import LikeIcon from '../components/kits/svg/likes.vue'
+import LikeIcon from '@/components/kits/svg/likes.vue'
 import ReplyIcon from '../components/kits/svg/reply.vue'
 import ChevronUpIcon from '../components/kits/svg/chevron-up.vue'
 import RepostIcon from '../components/kits/svg/repost.vue'

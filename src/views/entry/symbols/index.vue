@@ -26,9 +26,20 @@
       </div>
 
       <div class="mt-2">
-        <div>
-          <div class="hidden sm:block">
-            <nav class="flex space-x-2" aria-label="Tabs">
+        <div class="sm:hidden">
+          <select
+            class="block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none sm:text-sm rounded-md"
+            @change="onSelect"
+          >
+            <option v-for="tab in tabs" :key="tab.name" :selected="route.name === tab.to" :value="tab.to">
+              {{ tab.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="hidden sm:block">
+          <div>
+            <nav class="flex space-x-2">
               <router-link
                 v-for="(tab, idx) in tabs"
                 :key="idx"
@@ -59,7 +70,7 @@
 <script>
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const tabs = [
   { name: 'Tổng quan', to: 'symbols-overall' },
@@ -78,6 +89,7 @@ export default {
   setup() {
     // data
     const route = useRoute()
+    const router = useRouter()
     const profile = ref(null)
     const symbol = route.params.symbol
 
@@ -85,6 +97,12 @@ export default {
     const fetchProfile = async () => {
       profile.value = await axios.get(`/profile/${symbol}`)
     }
+
+    const onSelect = ($event) => {
+      const to = $event.target.value
+      router.push({ name: to, params: { symbol } })
+    }
+
     onMounted(() => {
       fetchProfile()
     })
@@ -94,6 +112,7 @@ export default {
       route,
       symbol,
       profile,
+      onSelect,
     }
   },
 }

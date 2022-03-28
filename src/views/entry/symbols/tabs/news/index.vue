@@ -5,7 +5,7 @@
 <script>
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import ListNews from '../../../../../components/apps/list-news/index.vue'
+import ListNews from '@/components/apps/list-news/index.vue'
 
 export default {
   name: 'News',

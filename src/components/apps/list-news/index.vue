@@ -16,22 +16,16 @@
 </template>
 
 <script>
-import toVue3 from 'vue-2-3/to-vue-3'
 import axios from 'axios'
 import { ref } from 'vue'
-import InfiniteLoading from 'vue-infinite-loading'
-import Vue2 from 'vue2'
-import * as Vue3 from 'vue'
+import { buildQuery } from '@/utils/strings.js'
 import NewItem from './new-item/index.vue'
-import { buildQuery } from '../../../utils/strings.js'
-toVue3.register(Vue2, Vue3)
 
 export default {
   name: 'ListNews',
 
   components: {
     NewItem,
-    InfiniteLoading: toVue3(InfiniteLoading),
   },
 
   props: {

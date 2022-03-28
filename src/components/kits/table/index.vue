@@ -22,7 +22,7 @@
             class="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500"
             :class="itemClasses(key, item)"
           >
-            {{ itemValue(key, item) }}
+            {{ itemValue(key, item, { index: idx }) }}
           </td>
         </tr>
         <tr>
