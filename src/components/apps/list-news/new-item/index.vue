@@ -13,15 +13,15 @@
       </div>
       <div class="general-info ml-2 flex-1">
         <p class="mb-2">
-          <span class="text-sm mr-1">{{ item.taggedSymbols[0].symbol }}</span>
+          <span class="text-sm mr-1">{{ item.taggedSymbols[0]?.symbol }}</span>
           <span
-            v-if="item.taggedSymbols[0].percentChange.toFixed(2) >= 0"
+            v-if="item.taggedSymbols[0]?.percentChange.toFixed(2) >= 0"
             class="text-green-600 text-sm"
           >
-            +{{ item.taggedSymbols[0].percentChange.toFixed(2) }}%
+            +{{ item.taggedSymbols[0]?.percentChange.toFixed(2) }}%
           </span>
           <span v-else class="text-red-600 text-sm">
-            {{ item.taggedSymbols[0].percentChange.toFixed(2) }}%
+            {{ item.taggedSymbols[0]?.percentChange.toFixed(2) }}%
           </span>
         </p>
         <p class="text-base font-semibold mb-2">{{ item.title }}</p>
@@ -29,12 +29,6 @@
           <p class="text-sm text-gray-500">
             {{ $filters.formatDateAtTime(item.date) }}
           </p>
-          <div class="flex items-center space-x-2 text-sm text-gray-400">
-            <LikeIcon />
-            <span>{{ item.totalLikes }}</span>
-            <ReplyIcon />
-            <span>{{ item.totalReplies }}</span>
-          </div>
         </div>
       </div>
     </div>

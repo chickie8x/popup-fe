@@ -28,7 +28,7 @@
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
-import { formatDate } from '../../../../../utils/formatters.js'
+import { formatDate } from '@/utils/formatters.js'
 
 const tabs = [
   {
