@@ -14,6 +14,11 @@ export const formatNumber = (num) => {
   return Intl.NumberFormat(locale).format(_n)
 }
 
+export const formatNumberComma = (num) => {
+  const _n = Number(num)
+  return Intl.NumberFormat('en').format(_n)
+}
+
 export const formatCurrency = (num) => {
   const _n = Number(num)
   return Intl.NumberFormat(locale, {
