@@ -83,35 +83,41 @@ export const giaodich = {
   buySellForeignQuantity: {
     title: 'Mua-Bán',
     classes: (item) => {
-      return item.buyForeignQuantity-item.sellForeignQuantity>=0?
-        'text-green-500':'text-red-500'
+      return item.buyForeignQuantity - item.sellForeignQuantity >= 0
+        ? 'text-green-500'
+        : 'text-red-500'
     },
     valueFn: (item) => {
-      return formatNumberComma(item.buyForeignQuantity-item.sellForeignQuantity)
+      return formatNumberComma(
+        item.buyForeignQuantity - item.sellForeignQuantity,
+      )
     },
   },
   buyForeignValue: {
     title: 'Mua',
     valueFn: (item) => {
-      return parseInt(item.buyForeignValue/1000)
+      return parseInt(item.buyForeignValue / 1000)
     },
     formater: formatNumberComma,
   },
   sellForeignValue: {
     title: 'Bán',
     valueFn: (item) => {
-      return parseInt(item.sellForeignValue/1000)
+      return parseInt(item.sellForeignValue / 1000)
     },
     formater: formatNumberComma,
   },
   buySellForeignValue: {
     title: 'Mua-Bán',
     valueFn: (item) => {
-      return formatNumberComma(parseInt((item.buyForeignValue-item.sellForeignValue)/1000))
+      return formatNumberComma(
+        parseInt((item.buyForeignValue - item.sellForeignValue) / 1000),
+      )
     },
     classes: (item) => {
-      return item.buyForeignValue-item.sellForeignValue>=0?
-      'text-green-500':'text-red-500'
+      return item.buyForeignValue - item.sellForeignValue >= 0
+        ? 'text-green-500'
+        : 'text-red-500'
     },
   },
 }
@@ -146,7 +152,7 @@ export const cungcau = {
   totalValue: {
     title: 'Tổng GT',
     valueFn: (item) => {
-      return parseInt(item.totalValue/1000)
+      return parseInt(item.totalValue / 1000)
     },
     formater: formatNumberComma,
   },
