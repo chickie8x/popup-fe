@@ -28,7 +28,6 @@
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
-import { formatNumberComma } from '@/utils/formatters'
 import headerConfigs from './headers'
 
 const tabs = [

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full">
+  <div class="flex w-full md:p-2">
     <div
       class="w-full px-2 py-4 flex flex-col hover:bg-gray-200 cursor-pointer sm:flex-row sm:pr-5 sm:px-0 sm:py-0"
       @click="router.push({ path: `/entry/news/${item.postID}` })"

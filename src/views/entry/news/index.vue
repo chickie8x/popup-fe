@@ -19,7 +19,7 @@
     <div class="w-full h-full sm:p-5">
       <div class="text-3xl font-semibold py-3">{{ post.title }}</div>
       <div class="flex items-center justify-between pb-3">
-        <div class="flex text-gray-500 text-sm divide-x space-x-2">
+        <div class="flex text-gray-500 text-sm space-x-2">
           <div>{{ post.postSource.name }}</div>
           <div class="text-sm text-gray-500 ml-2">
             {{ $filters.formatDate(post.date) }}
