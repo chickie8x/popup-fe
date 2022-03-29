@@ -69,23 +69,50 @@ export const giaodich = {
       return formatDate(item.date)
     },
   },
-  buyCount: {
-    title: 'SL Đặt Mua',
+  currentForeignRoom: {
+    title: 'Room NN',
   },
-  buyQuantity: {
-    title: 'KL Đặt Mua',
+  buyForeignQuantity: {
+    title: 'Mua',
+    formater: formatNumberComma,
   },
-  sellCount: {
-    title: 'SL Đặt Bán',
+  sellForeignQuantity: {
+    title: 'Bán',
+    formater: formatNumberComma,
   },
-  sellQuantity: {
-    title: 'KL Đặt Bán',
+  buySellForeignQuantity: {
+    title: 'Mua-Bán',
+    classes: (item) => {
+      return item.buyForeignQuantity-item.sellForeignQuantity>=0?
+        'text-green-500':'text-red-500'
+    },
+    valueFn: (item) => {
+      return formatNumberComma(item.buyForeignQuantity-item.sellForeignQuantity)
+    },
   },
-  totalVolume: {
-    title: 'Tổng KL',
+  buyForeignValue: {
+    title: 'Mua',
+    valueFn: (item) => {
+      return parseInt(item.buyForeignValue/1000)
+    },
+    formater: formatNumberComma,
   },
-  totalValue: {
-    title: 'Tổng GT',
+  sellForeignValue: {
+    title: 'Bán',
+    valueFn: (item) => {
+      return parseInt(item.sellForeignValue/1000)
+    },
+    formater: formatNumberComma,
+  },
+  buySellForeignValue: {
+    title: 'Mua-Bán',
+    valueFn: (item) => {
+      return formatNumberComma(parseInt((item.buyForeignValue-item.sellForeignValue)/1000))
+    },
+    classes: (item) => {
+      return item.buyForeignValue-item.sellForeignValue>=0?
+      'text-green-500':'text-red-500'
+    },
   },
 }
 
@@ -96,32 +123,32 @@ export const cungcau = {
       return formatDate(item.date)
     },
   },
-  currentForeignRoom: {
-    title: 'Room NN',
+  buyCount: {
+    title: 'SL Đặt Mua',
+    formater: formatNumberComma,
   },
-  buyForeignQuantity: {
-    title: 'Mua',
+  buyQuantity: {
+    title: 'KL Đặt Mua',
+    formater: formatNumberComma,
   },
-  sellForeignQuantity: {
-    title: 'Bán',
+  sellCount: {
+    title: 'SL Đặt Bán',
+    formater: formatNumberComma,
   },
-  buySellForeignQuantity: {
-    title: 'Mua-Bán',
-    classes: (item) => {
-      return item.buySellForeignQuantityClasses
+  sellQuantity: {
+    title: 'KL Đặt Bán',
+    formater: formatNumberComma,
+  },
+  totalVolume: {
+    title: 'Tổng KL',
+    formater: formatNumberComma,
+  },
+  totalValue: {
+    title: 'Tổng GT',
+    valueFn: (item) => {
+      return parseInt(item.totalValue/1000)
     },
-  },
-  buyForeignValue: {
-    title: 'Mua',
-  },
-  sellForeignValue: {
-    title: 'Bán',
-  },
-  buySellForeignValue: {
-    title: 'Mua-Bán',
-    classes: (item) => {
-      return item.buySellForeignValueClasses
-    },
+    formater: formatNumberComma,
   },
 }
 

@@ -91,44 +91,10 @@ export default {
     }
 
     const giaodichCb = (item) => {
-      item.buyForeignQuantity = formatNumberComma(item.buyForeignQuantity)
-      item.sellForeignQuantity = formatNumberComma(item.sellForeignQuantity)
-      item.buySellForeignQuantity = formatNumberComma(
-        parseInt(item.buyForeignQuantity.replace(',', '')) -
-          parseInt(item.sellForeignQuantity.replace(',', '')),
-      )
-      item.buySellForeignQuantityClasses =
-        parseInt(item.buyForeignQuantity.replace(',', '')) -
-          parseInt(item.sellForeignQuantity.replace(',', '')) >=
-        0
-          ? 'text-green-500'
-          : 'text-red-500'
-
-      item.buyForeignValue = formatNumberComma(
-        parseInt(item.buyForeignValue / 1000),
-      )
-      item.sellForeignValue = formatNumberComma(
-        parseInt(item.sellForeignValue / 1000),
-      )
-      item.buySellForeignValue = formatNumberComma(
-        parseInt(item.buyForeignValue.replace(',', '')) -
-          parseInt(item.sellForeignValue.replace(',', '')),
-      )
-      item.buySellForeignValueClasses =
-        parseInt(item.buyForeignValue.replace(',', '')) -
-          parseInt(item.sellForeignValue.replace(',', '')) >=
-        0
-          ? 'text-green-500'
-          : 'text-red-500'
-
       return item
     }
 
     const cungcauCb = (item) => {
-      item.buyCount = formatNumberComma(item.buyCount)
-      item.buyQuantity = formatNumberComma(item.buyQuantity)
-      item.sellCount = formatNumberComma(item.sellCount)
-      item.sellQuantity = formatNumberComma(item.sellQuantity)
       return item
     }
 
@@ -172,6 +138,7 @@ export default {
         $state.complete()
       }
     }
+
 
     return {
       tab,
