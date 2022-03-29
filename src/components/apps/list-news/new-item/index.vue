@@ -1,7 +1,7 @@
 <template>
   <div class="flex w-full">
     <div
-      class="w-full px-2 py-4 flex flex-col hover:bg-gray-200 cursor-pointer  sm:flex-row sm:pr-5 sm:px-0 sm:py-0"
+      class="w-full px-2 py-4 flex flex-col hover:bg-gray-200 cursor-pointer sm:flex-row sm:pr-5 sm:px-0 sm:py-0"
       @click="router.push({ path: `/entry/news/${item.postID}` })"
     >
       <div class="w-full sm:w-[100px] sm:h-[100px]">
@@ -12,10 +12,17 @@
         />
       </div>
       <div class="general-info sm:ml-2 flex-1 w-full">
-        <div v-if='item.taggedSymbols[0]' class=" text-left my-2 ml-0">
-          <span class="text-sm mr-1 text-gray-500">{{ item.taggedSymbols[0]?.symbol }}</span>
+        <div v-if="item.taggedSymbols[0]" class="text-left my-2 ml-0">
+          <span class="text-sm mr-1 text-gray-500">{{
+            item.taggedSymbols[0]?.symbol
+          }}</span>
           <span
-           :class="[item.taggedSymbols[0]?.percentChange.toFixed(2) >= 0?'text-green-600':'text-red-600', 'text-sm']"
+            :class="[
+              item.taggedSymbols[0]?.percentChange.toFixed(2) >= 0
+                ? 'text-green-600'
+                : 'text-red-600',
+              'text-sm',
+            ]"
           >
             {{ item.taggedSymbols[0]?.percentChange.toFixed(2) }}%
           </span>

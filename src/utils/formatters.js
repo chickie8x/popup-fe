@@ -9,6 +9,10 @@ export const formatDate = (date) => {
   }).format(_d)
 }
 
+export const fixedTwo = (num) => {
+  return num.toFixed(2)
+}
+
 export const formatNumber = (num) => {
   const _n = Number(num)
   return Intl.NumberFormat(locale).format(_n)

@@ -69,15 +69,18 @@ export default {
 
     const itemValue = (key, item) => {
       const config = headers.value[key]
-      if (config.valueFn) {
-        return config.valueFn(item)
-      }
+      const formater = config.formater
+      const valueFn = config.valueFn
 
+      let value = item[key]
+      if (valueFn) {
+        value = valueFn(item)
+      }
       if (config.key) {
-        return item[config.key]
+        value = item[config.key]
       }
 
-      return item[key]
+      return formater ? formater(value) : value
     }
 
     const itemClasses = (key, item) => {

@@ -31,7 +31,12 @@
             class="block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none sm:text-sm rounded-md"
             @change="onSelect"
           >
-            <option v-for="tab in tabs" :key="tab.name" :selected="route.name === tab.to" :value="tab.to">
+            <option
+              v-for="tab in tabs"
+              :key="tab.name"
+              :selected="route.name === tab.to"
+              :value="tab.to"
+            >
               {{ tab.name }}
             </option>
           </select>
