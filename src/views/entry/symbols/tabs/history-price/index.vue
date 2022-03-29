@@ -10,7 +10,7 @@
     <div class="flex flex-col">
       <div class="inline-block min-w-full py-2 align-middle">
         <div class="shadow-sm ring-1 ring-black ring-opacity-5">
-          <CTable :headers="headers" :items="items" heigh="455px" @onInfinite="loadMore" />
+          <CTable :headers="headers" :items="items" heigh="440px" @onInfinite="loadMore" />
         </div>
       </div>
     </div>
@@ -22,7 +22,7 @@ import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
 import { formatDate } from '@/utils/formatters.js'
-import { formatNumber, formatNumberComma } from '../../../../../utils/formatters'
+import { formatNumberComma } from '../../../../../utils/formatters'
 
 const tabs = [
   {
@@ -105,7 +105,6 @@ export default {
           item.buyQuantity = formatNumberComma(item.buyQuantity)
           item.sellCount = formatNumberComma(item.sellCount)
           item.sellQuantity = formatNumberComma(item.sellQuantity)
-
         }
         else {
           return
@@ -248,7 +247,6 @@ export default {
         $state.complete()
       }
     }
-
 
     return {
       tabs,
