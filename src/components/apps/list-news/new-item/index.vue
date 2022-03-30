@@ -27,7 +27,7 @@
             {{ item.taggedSymbols[0]?.percentChange.toFixed(2) }}%
           </span>
         </div>
-        <p class="text-left text-base font-semibold mb-2">{{ item.title }}</p>
+        <p class="text-left text-base font-semibold mb-2 line-clamp-1">{{ item.title }}</p>
         <div class="flex justify-between">
           <p class="text-sm text-gray-500">
             {{ $filters.formatDateAtTime(item.date) }}
