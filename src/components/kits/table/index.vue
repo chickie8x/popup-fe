@@ -8,6 +8,7 @@
             :key="idx"
             scope="col"
             class="sticky top-0 bg-gray-200 whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900"
+            :class="headerClasses(key, item)"
           >
             {{ headers[key].title || key }}
           </th>
@@ -94,6 +95,17 @@ export default {
       return classes
     }
 
+    const headerClasses = (key, item) => {
+      const config = headers.value[key]
+      const classes = config.headerClasses
+
+      if (typeof classes === 'function') {
+        return classes(item)
+      }
+
+      return classes
+    }
+
     const onInfinite = ($state) => {
       emit('onInfinite', $state)
     }
@@ -103,6 +115,7 @@ export default {
       itemValue,
       onInfinite,
       itemClasses,
+      headerClasses
     }
   },
 }

@@ -6,8 +6,11 @@ export const gqk = {
     valueFn: (item) => {
       return formatDate(item.date)
     },
-    classes: (items) => {
+    classes: (item) => {
       return 'sticky left-0 bg-white z-10'
+    },
+    headerClasses: (item) => {
+      return 'sticky left-0 z-50'
     }
   },
   change: {
