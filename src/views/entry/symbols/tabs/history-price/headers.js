@@ -74,6 +74,12 @@ export const giaodich = {
     valueFn: (item) => {
       return formatDate(item.date)
     },
+    classes: (item) => {
+      return 'sticky left-0 bg-white z-10'
+    },
+    headerClasses: (item) => {
+      return 'sticky left-0 z-50'
+    }
   },
   currentForeignRoom: {
     title: 'Room NN',
@@ -134,6 +140,12 @@ export const cungcau = {
     valueFn: (item) => {
       return formatDate(item.date)
     },
+    classes: (item) => {
+      return 'sticky left-0 bg-white z-10'
+    },
+    headerClasses: (item) => {
+      return 'sticky left-0 z-50'
+    }
   },
   buyCount: {
     title: 'SL Đặt Mua',
