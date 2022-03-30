@@ -6,6 +6,9 @@ export const gqk = {
     valueFn: (item) => {
       return formatDate(item.date)
     },
+    classes: (items) => {
+      return 'sticky left-0 bg-white z-10'
+    }
   },
   change: {
     title: 'Thay đổi',
