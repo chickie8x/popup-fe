@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="hidden sm:block">
+    <div class="sm:block">
       <nav class="flex space-x-2" aria-label="Tabs">
         <a
           v-for="(tab, idx) in tabs"

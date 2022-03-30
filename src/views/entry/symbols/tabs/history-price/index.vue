@@ -1,9 +1,9 @@
 <template>
   <div class="w-full overflow-hidden">
-    <div class="w-full flex items-center p-2">
+    <div class="w-full flex flex-col items-center p-2 sm:flex-row sm:items-center">
       <CTabs v-model="tab" :tabs="tabs" size="sm" />
-      <div class="ml-auto">
-        <span class="text-sm text-gray-600 font-bold"
+      <div class="sm:ml-auto">
+        <span class="text-xs sm:text-sm text-gray-600 font-bold"
           >Đ/v khối lượng: 1 CP, Đ/v giá trị: 1,000 VNĐ</span
         >
       </div>
