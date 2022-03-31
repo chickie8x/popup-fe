@@ -3,13 +3,13 @@
     v-if="profile"
     class="border-1 border-gray-200 rounded-lg bg-white overflow-y-scroll"
   >
-    <div class="inset-0 py-3 px-2 mx-4 mb-4">
+    <div class="inset-0 py-3 sm:px-2 sm:mx-4 mb-4">
       <div class="px-2 py-2 profile-bio" v-html="profile.bio" />
     </div>
 
     <div
       v-show="jobs"
-      class="inset-0 py-3 px-2 mx-4 mb-4 bg-gray-100 rounded-lg"
+      class="inset-0 py-3 px-2 mx-4 mb-4 bg-gray-100 rounded-lg text-left"
     >
       <div class="font-bold">CÔNG VIỆC HIỆN TẠI</div>
       <ul role="list" class="divide-y divide-gray-200">
@@ -91,7 +91,7 @@
             <p class="text-sm text-gray-900">{{ relation.relationName }}</p>
             <p
               v-if="relation.relatedIndividual.institutionSymbol"
-              class="text-sm text-gray-900"
+              class="text-sm text-gray-900 line-clamp-1"
             >
               {{ relation.relatedIndividual.positionName }} -
               {{ relation.relatedIndividual.institutionName }} (Mã CK:

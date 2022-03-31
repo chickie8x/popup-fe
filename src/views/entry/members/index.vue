@@ -11,23 +11,23 @@
         </DialogTitle>
       </div>
 
-      <div class="flex bg-slate-100 mt-4">
-        <aside class="flex flex-shrink-0 w-72 text-center px-3">
-          <div class="flex-1 flex flex-col mt-3">
+      <div class="flex flex-col sm:flex-row bg-slate-100 mt-4">
+        <aside class="flex flex-shrink-0 w-full sm:w-72 text-center px-3">
+          <div class=" w-full grid grid-cols-2 grid-rows-12 sm:flex-1 sm:flex flex-col mt-3">
             <img
-              class="w-36 h-36 flex-shrink-0 rounded-full mx-auto"
+              class="w-36 h-36 col-start-1 col-span-1 row-start-1 row-span-4 sm:flex-shrink-0 rounded-full mx-auto"
               :src="getAvatar()"
               alt=""
             />
-            <h3 class="mt-4 text-gray-900 text-lg font-bold">
+            <h3 class="sm:mt-4 text-gray-900 text-lg font-bold col-start-2 row-start-1 ">
               {{ profile.name }}
             </h3>
-            <h4 class="mt-4 text-gray-900 text-sm font-bold">
+            <h4 class="sm:mt-4 text-gray-900 text-sm font-bold col-start-2 row-start-2">
               {{ profile.positionName }}
             </h4>
             <div
               v-if="profile.institutionSymbol"
-              class="mt-4 text-gray-900 text-base"
+              class="mt-4 text-gray-900 text-base col-start-1 col-span-2 row-start-5 mt-5"
             >
               {{ profile.institutionName }} (Mã CK:
               <router-link
@@ -40,18 +40,18 @@
             <div v-else class="mt-4 text-gray-900 text-base">
               {{ profile.institutionName }}
             </div>
-            <div class="text-gray-900 text-base">
+            <div class="text-gray-900 text-base col-start-2 row-start-3">
               Tuổi:
               <span class="font-bold">{{ getAge(profile) }}</span>
             </div>
-            <div class="text-gray-900 text-base">
+            <div class="text-gray-900 text-base col-start-2 row-start-4">
               Học vấn:
               <span class="font-bold">
                 {{ educationMap[profile.education] || '-' }}
               </span>
             </div>
             <div
-              class="mt-3 px-3 py-3 text-gray-900 text-2xl bg-blue-100 rounded-lg justify-center"
+              class="mt-3 px-3 py-3 text-gray-900 text-2xl bg-blue-100 rounded-lg justify-center col-start-1 col-span-2 row-start-6"
             >
               Tổng tài sản
               <div class="font-bold">
@@ -73,7 +73,7 @@
             </div>
 
             <div class="mt-4">
-              <Profile class="border-2 rounded-md h-[511px]" />
+              <Profile class="border-2 rounded-md h-[511px] text-left" />
             </div>
           </div>
         </main>
